@@ -1,0 +1,2287 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restorant Lepenci – Natyrë & Elegancë</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dark: #8B6914;
+    --forest: #1A2E1A;
+    --forest-mid: #243324;
+    --forest-light: #2E4A2E;
+    --cream: #F5EDD8;
+    --cream-dark: #E8D9B8;
+    --stone: #8B7355;
+    --river: #4A7C8E;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--forest);
+    color: var(--cream);
+    overflow-x: hidden;
+    margin: 0; padding: 0;
+  }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--forest); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+  /* ── NAVBAR STRIP ── */
+  #navbar {
+    position: fixed; top: 0; width: 100%; z-index: 1000;
+    background: rgba(18,32,18,0.97);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(201,168,76,0.25);
+    box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+  }
+  .nav-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    height: 68px;
+    padding: 0 2rem;
+  }
+  /* Logo on left */
+  .nav-logo { flex-shrink: 0; }
+  /* Nav links centered */
+  .nav-center {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.2rem;
+  }
+  /* Admin on right */
+  .nav-right { flex-shrink: 0; }
+
+  .nav-link {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cream);
+    transition: color 0.3s;
+    position: relative;
+    text-decoration: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 2px;
+    background: var(--gold);
+    transition: width 0.3s ease;
+  }
+  .nav-link:hover { color: var(--gold); }
+  .nav-link:hover::after { width: 100%; }
+  .nav-link.active { color: var(--gold); }
+  .nav-link.active::after { width: 100%; }
+
+  .logo-text {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+  .logo-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--cream-dark);
+  }
+
+  /* Admin button - subtle but visible */
+  .admin-btn {
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid rgba(201,168,76,0.35);
+    color: rgba(201,168,76,0.7);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .admin-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(201,168,76,0.08);
+  }
+
+  /* ── PAGE SYSTEM ── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── HERO ── */
+  #page-home { min-height: 100vh; }
+  #hero {
+    min-height: 100vh;
+    background: linear-gradient(160deg, rgba(18,32,18,0.6) 0%, rgba(10,20,10,0.82) 100%),
+      url('Fotot e Ambientit/Ambienti1.jpeg') center/cover no-repeat;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    padding-top: 68px;
+  }
+  #hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center bottom, rgba(201,168,76,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 700;
+    line-height: 1.0;
+    color: var(--cream);
+    text-shadow: 0 4px 40px rgba(0,0,0,0.6);
+  }
+  .hero-title span { color: var(--gold); font-style: italic; }
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--cream-dark);
+  }
+  .gold-divider {
+    width: 80px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 1.2rem auto;
+  }
+  .btn-primary {
+    display: inline-block;
+    padding: 0.85rem 2.5rem;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.35s ease;
+    position: relative; overflow: hidden;
+    text-decoration: none;
+    z-index: 0;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--gold);
+    transform: translateX(-101%);
+    transition: transform 0.35s ease;
+    z-index: -1;
+  }
+  .btn-primary:hover { color: var(--forest); }
+  .btn-primary:hover::before { transform: translateX(0); }
+  .btn-solid {
+    display: inline-block;
+    padding: 0.85rem 2.5rem;
+    background: var(--gold);
+    border: 1px solid var(--gold);
+    color: var(--forest);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+  .btn-solid:hover { background: var(--gold-dark); border-color: var(--gold-dark); color: var(--cream); }
+
+  .scroll-dot {
+    width: 28px; height: 48px;
+    border: 2px solid rgba(201,168,76,0.5);
+    border-radius: 14px;
+    position: relative;
+    margin: 0 auto;
+  }
+  .scroll-dot::after {
+    content: '';
+    width: 4px; height: 10px;
+    background: var(--gold);
+    border-radius: 2px;
+    position: absolute; top: 6px; left: 50%; transform: translateX(-50%);
+    animation: scrollDown 2s infinite;
+  }
+  @keyframes scrollDown {
+    0% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(18px); }
+  }
+
+  /* ── HOME SCROLL CONTENT ── */
+  .section-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.15;
+  }
+  .section-title em { color: var(--gold); font-style: italic; }
+
+  .sec-divider {
+    position: relative;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0;
+  }
+
+  /* About */
+  #about-home {
+    background: linear-gradient(135deg, var(--forest) 0%, var(--forest-mid) 100%);
+    padding: 6rem 2rem;
+    position: relative;
+  }
+  #about-home::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  /* Features */
+  .feature-grid {
+    background: var(--forest-mid);
+    padding: 5rem 2rem;
+    position: relative;
+  }
+  .feature-grid::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .feature-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,168,76,0.12);
+    border-top: 2px solid var(--gold);
+    padding: 2rem;
+    text-align: center;
+  }
+
+  /* Gallery preview */
+  .gallery-preview {
+    background: var(--forest);
+    padding: 5rem 2rem;
+    position: relative;
+  }
+  .gallery-preview::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .gallery-img {
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    filter: brightness(0.85) saturate(0.9);
+    transition: all 0.5s ease;
+    cursor: pointer;
+    width: 100%;
+  }
+  .gallery-img:hover {
+    filter: brightness(1) saturate(1.1);
+    transform: scale(1.02);
+  }
+  .gallery-wrap { overflow: hidden; }
+
+  /* CTA strip */
+  .cta-strip {
+    background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.02));
+    border-top: 1px solid rgba(201,168,76,0.2);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+
+  /* ── FULL PAGES ── */
+  .full-page {
+    min-height: 100vh;
+    padding-top: 68px;
+  }
+  .page-hero {
+    padding: 4rem 2rem 2rem;
+    background: linear-gradient(160deg, var(--forest-mid), var(--forest));
+    position: relative;
+    text-align: center;
+  }
+  .page-hero::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .page-body { padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; }
+
+  /* ── MENU PAGE ── */
+  .menu-category-tabs {
+    display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center;
+    margin-bottom: 2rem;
+  }
+  .menu-cat-btn {
+    padding: 0.65rem 1.6rem;
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--cream-dark);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: transparent;
+  }
+  .menu-cat-btn.active, .menu-cat-btn:hover {
+    background: var(--gold); border-color: var(--gold);
+    color: var(--forest); font-weight: 700;
+  }
+  .menu-panel { display: none; }
+  .menu-panel.active { display: block; }
+
+  /* Drinks sub-tabs */
+  .drink-subtabs {
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+    margin-bottom: 1.5rem; justify-content: center;
+  }
+  .drink-sub-btn {
+    padding: 0.4rem 1.1rem;
+    border: 1px solid rgba(201,168,76,0.2);
+    color: var(--stone);
+    font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.3s; background: transparent;
+  }
+  .drink-sub-btn.active, .drink-sub-btn:hover {
+    border-color: var(--gold-light); color: var(--gold-light);
+    background: rgba(201,168,76,0.07);
+  }
+  .drink-panel { display: none; }
+  .drink-panel.active { display: block; }
+
+  .menu-item {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(201,168,76,0.12);
+  }
+  .menu-item:last-child { border-bottom: none; }
+  .menu-item-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem; font-weight: 500; color: var(--cream);
+  }
+  .menu-item-desc { font-size: 0.72rem; color: var(--stone); margin-top: 0.2rem; font-style: italic; }
+  .menu-item-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; color: var(--gold); white-space: nowrap;
+    margin-left: 1.5rem; flex-shrink: 0;
+  }
+  .menu-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,168,76,0.12);
+    border-top: 2px solid var(--gold);
+    padding: 2rem;
+  }
+
+  /* ── LOCATION PAGE ── */
+  .map-embed { border: 1px solid rgba(201,168,76,0.25); filter: brightness(0.88) saturate(0.85); }
+  .info-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-left: 3px solid var(--gold);
+    padding: 1.25rem;
+  }
+
+  /* ── FORM STYLES ── */
+  .form-field {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,168,76,0.2);
+    color: var(--cream);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    padding: 0.85rem 1rem;
+    width: 100%; outline: none;
+    transition: border-color 0.3s;
+    -webkit-appearance: none; appearance: none;
+  }
+  .form-field:focus { border-color: var(--gold); }
+  .form-field::placeholder { color: rgba(245,237,216,0.3); }
+  .form-field option { background: var(--forest-mid); }
+  label.form-label {
+    font-size: 0.65rem; font-weight: 600; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gold);
+    display: block; margin-bottom: 0.4rem;
+  }
+
+  /* ── FOOTER ── */
+  #footer {
+    background: #0D1A0D;
+    border-top: 1px solid rgba(201,168,76,0.2);
+    padding: 4rem 2rem;
+  }
+
+  /* ── POPUPS & MODALS ── */
+  #reservationPopup {
+    display: none; position: fixed; inset: 0; z-index: 8888;
+    background: rgba(0,0,0,0.75); backdrop-filter: blur(6px);
+    align-items: center; justify-content: center;
+  }
+  #reservationPopup.show { display: flex; }
+  #offhoursPopup {
+    display: none; position: fixed; inset: 0; z-index: 8889;
+    background: rgba(0,0,0,0.75); backdrop-filter: blur(6px);
+    align-items: center; justify-content: center;
+  }
+  #offhoursPopup.show { display: flex; }
+
+  .popup-box {
+    background: var(--forest-mid);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-top: 3px solid var(--gold);
+    max-width: 460px; width: 92%; padding: 2.5rem;
+    text-align: center; animation: popIn 0.3s ease;
+  }
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.92); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  #adminModal {
+    display: none; position: fixed; inset: 0; z-index: 9999;
+    background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+    align-items: center; justify-content: center;
+  }
+  .admin-tab {
+    padding: 0.6rem 1.4rem; font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    border-bottom: 2px solid transparent; cursor: pointer;
+    color: var(--stone); transition: all 0.3s; background: none; border-left: none; border-right: none; border-top: none;
+  }
+  .admin-tab.active { border-color: var(--gold); color: var(--gold); }
+  .admin-table { width: 100%; border-collapse: collapse; }
+  .admin-table th {
+    font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); padding: 0.6rem 0.8rem;
+    border-bottom: 1px solid rgba(201,168,76,0.2); text-align: left;
+  }
+  .admin-table td {
+    font-size: 0.78rem; color: var(--cream-dark);
+    padding: 0.7rem 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.05); vertical-align: top;
+  }
+  .admin-table tr:hover td { background: rgba(201,168,76,0.04); }
+  .edit-input {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(201,168,76,0.3);
+    color: var(--cream); padding: 0.3rem 0.5rem; font-size: 0.78rem; width: 70px; outline: none;
+  }
+  .badge {
+    display: inline-block; padding: 0.15rem 0.6rem; font-size: 0.6rem;
+    font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .badge-green { background: rgba(50,180,50,0.15); color: #5db85d; border: 1px solid rgba(50,180,50,0.2); }
+  .badge-yellow { background: rgba(201,168,76,0.15); color: var(--gold); border: 1px solid rgba(201,168,76,0.2); }
+
+  /* ── MOBILE MENU ── */
+  #mobileMenu {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 999;
+    background: rgba(13,26,13,0.99);
+    flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
+  }
+  #mobileMenu.open { display: flex; }
+  #mobileMenu .nav-link { font-size: 1.3rem; letter-spacing: 0.2em; }
+
+  /* ── FADE ANIMATION ── */
+  .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── VIDEO SECTION ── */
+  .video-container {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto;
+    border: 1px solid rgba(201,168,76,0.25);
+    background: #000;
+    overflow: hidden;
+  }
+  .video-container video {
+    width: 100%; display: block;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .nav-center { display: none; }
+    .nav-inner { justify-content: space-between; }
+  }
+
+  /* ── REVIEWS SLIDER ── */
+  #reviews-section {
+    background: linear-gradient(135deg, var(--forest-mid) 0%, var(--forest) 100%);
+    padding: 5rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  #reviews-section::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  #reviews-section::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .reviews-track-wrapper {
+    overflow: hidden;
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .reviews-track {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .review-slide {
+    min-width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
+  }
+  .review-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,168,76,0.18);
+    border-top: 3px solid var(--gold);
+    padding: 2.5rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .review-card::before {
+    content: '\201C';
+    font-family: 'Playfair Display', serif;
+    font-size: 6rem;
+    color: rgba(201,168,76,0.10);
+    position: absolute;
+    top: -0.5rem;
+    left: 1rem;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .review-stars {
+    color: var(--gold);
+    font-size: clamp(0.75rem, 3vw, 1.1rem);
+    letter-spacing: 0.06em;
+    margin-bottom: 1.2rem;
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+    flex-wrap: nowrap;
+    overflow: hidden;
+  }
+  .review-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--cream-dark);
+    line-height: 1.85;
+    margin-bottom: 1.8rem;
+    word-break: break-word;
+  }
+  @media (max-width: 640px) {
+    .review-card { padding: 2rem 1.2rem 1.8rem; }
+    .review-card::before { font-size: 4rem; left: 0.5rem; top: -0.2rem; }
+    .review-stars {
+      font-size: clamp(0.7rem, 4vw, 0.95rem);
+      letter-spacing: 0.02em;
+      word-spacing: -2px;
+    }
+    .review-text { font-size: 0.97rem; }
+    .review-slide { padding: 0 0.2rem; }
+  }
+  @media (max-width: 380px) {
+    .review-stars {
+      font-size: clamp(0.6rem, 3.5vw, 0.8rem);
+      letter-spacing: 0;
+    }
+  }
+  .review-author-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream);
+    margin-bottom: 0.3rem;
+  }
+  .review-source {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--stone);
+  }
+  .review-source i { margin-right: 0.3rem; }
+  .reviews-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-top: 2.5rem;
+  }
+  .rev-btn {
+    width: 44px; height: 44px;
+    border: 1px solid rgba(201,168,76,0.35);
+    background: transparent;
+    color: var(--gold);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .rev-btn:hover {
+    background: rgba(201,168,76,0.12);
+    border-color: var(--gold);
+  }
+  .rev-dots { display: flex; gap: 0.5rem; }
+  .rev-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.25);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    padding: 0;
+  }
+  .rev-dot.active {
+    background: var(--gold);
+    transform: scale(1.25);
+  }
+
+  /* ── COMPREHENSIVE RESPONSIVE ── */
+
+  /* General layout fixes */
+  @media (max-width: 768px) {
+    .page-body { padding: 2.5rem 1rem; }
+    #about-home { padding: 4rem 1rem; }
+    .feature-grid { padding: 3.5rem 1rem; }
+    .gallery-preview { padding: 3.5rem 1rem; }
+    .cta-strip { padding: 3rem 1rem; }
+    #reviews-section { padding: 3.5rem 1rem; }
+    #footer { padding: 3rem 1rem; }
+
+    /* Hero buttons stacked */
+    .hero-title { font-size: clamp(2.4rem, 10vw, 5rem); }
+
+    /* Feature cards */
+    .feature-card { padding: 1.5rem; }
+
+    /* Menu items wrap on small screens */
+    .menu-item { flex-wrap: wrap; gap: 0.3rem; }
+    .menu-item-price { margin-left: 0; }
+
+    /* Info cards in lokacioni */
+    .grid.md\:grid-cols-3 { grid-template-columns: 1fr; }
+    .md\:col-span-2 { grid-column: span 1; }
+
+    /* Footer grid */
+    .grid.md\:grid-cols-3 { gap: 2rem; }
+  }
+
+  @media (max-width: 640px) {
+    /* Hero */
+    .hero-title { font-size: clamp(2rem, 11vw, 3.5rem); }
+    .hero-sub { font-size: clamp(0.7rem, 3vw, 0.95rem); letter-spacing: 0.15em; }
+
+    /* Buttons */
+    .btn-primary, .btn-solid {
+      padding: 0.75rem 1.6rem;
+      font-size: 0.68rem;
+    }
+
+    /* Section titles */
+    .section-title { font-size: clamp(1.6rem, 6vw, 2.4rem); }
+
+    /* Review card */
+    .review-card { padding: 1.8rem 1rem 1.5rem; }
+
+    /* About section image */
+    #about-home .grid.md\:grid-cols-2 { grid-template-columns: 1fr; }
+
+    /* Admin table scroll */
+    .admin-table { font-size: 0.72rem; }
+
+    /* Popup box */
+    .popup-box { padding: 1.8rem 1.2rem; }
+
+    /* CTA buttons */
+    .cta-strip .flex { flex-direction: column; align-items: center; }
+
+    /* Map iframe */
+    iframe.map-embed { height: 280px; }
+
+    /* Drone video section */
+    .video-container { max-width: 100%; }
+  }
+
+  @media (max-width: 480px) {
+    .nav-inner { padding: 0 1rem; }
+    .page-hero { padding: 3rem 1rem 1.5rem; }
+
+    /* Menu tabs wrap nicely */
+    .menu-category-tabs { gap: 0.4rem; }
+    .menu-cat-btn { padding: 0.5rem 0.9rem; font-size: 0.65rem; }
+
+    /* Form fields */
+    .form-field { font-size: 0.82rem; padding: 0.75rem 0.85rem; }
+
+    /* Gallery preview grid on home */
+    .gallery-preview .grid.grid-cols-2 { gap: 6px; }
+  }
+
+  /* Ensure images never overflow */
+  img { max-width: 100%; }
+
+  /* Table horizontal scroll on mobile */
+  .admin-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  /* Drink subtabs scroll on mobile */
+  .drink-subtabs { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; padding-bottom: 0.4rem; -webkit-overflow-scrolling: touch; }
+  @media (max-width: 640px) {
+    .drink-subtabs { flex-wrap: wrap; justify-content: center; }
+    .drink-sub-btn { font-size: 0.6rem; padding: 0.35rem 0.7rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════════════ -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <!-- Logo LEFT -->
+    <div class="nav-logo">
+      <a onclick="showPage('home')" style="cursor:pointer; text-decoration:none;">
+        <div class="logo-text">Lepenci</div>
+        <div class="logo-sub">Restorant & Kafé</div>
+      </a>
+    </div>
+
+    <!-- Nav Links CENTER (desktop) -->
+    <div class="nav-center hidden md:flex">
+      <button onclick="showPage('home')" class="nav-link">Home</button>
+      <button onclick="showPage('historia')" class="nav-link">Historia</button>
+      <button onclick="showPage('menu')" class="nav-link">Menu</button>
+      <button onclick="showPage('galeria')" class="nav-link">Galeria</button>
+      <button onclick="showPage('lokacioni')" class="nav-link">Lokacioni</button>
+      <button onclick="showPage('rezervo')" class="nav-link">Rezervo</button>
+      <button onclick="showPage('kontakt')" class="nav-link">Kontakt</button>
+    </div>
+
+    <!-- Admin RIGHT + Hamburger -->
+    <div class="nav-right flex items-center gap-3">
+      <button onclick="openAdminLogin()" class="admin-btn hidden md:block">
+        <i class="fas fa-lock mr-1"></i> Admin
+      </button>
+      <button id="hamburger" class="md:hidden text-cream text-xl" style="background:none;border:none;color:var(--cream);cursor:pointer;" onclick="toggleMobileMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobileMenu">
+  <button onclick="toggleMobileMenu()" style="position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;color:var(--gold);font-size:1.5rem;cursor:pointer;"><i class="fas fa-times"></i></button>
+  <button onclick="showPage('home'); toggleMobileMenu();" class="nav-link">Home</button>
+  <button onclick="showPage('historia'); toggleMobileMenu();" class="nav-link">Historia</button>
+  <button onclick="showPage('menu'); toggleMobileMenu();" class="nav-link">Menu</button>
+  <button onclick="showPage('galeria'); toggleMobileMenu();" class="nav-link">Galeria</button>
+  <button onclick="showPage('lokacioni'); toggleMobileMenu();" class="nav-link">Lokacioni</button>
+  <button onclick="showPage('rezervo'); toggleMobileMenu();" class="nav-link">Rezervo</button>
+  <button onclick="showPage('kontakt'); toggleMobileMenu();" class="nav-link">Kontakt</button>
+  <button onclick="openAdminLogin(); toggleMobileMenu();" class="admin-btn" style="margin-top:1rem;"><i class="fas fa-lock mr-1"></i> Admin</button>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     HOME PAGE
+══════════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+  <!-- HERO -->
+  <section id="hero">
+    <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; padding-top:68px; padding-bottom:3rem; width:100%; position:relative;">
+      <div class="text-center relative z-10 px-4" style="max-width:800px; flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+        <p class="hero-sub mb-4" style="letter-spacing:0.35em;">Ku natyra takohet me traditën</p>
+        <div class="gold-divider"></div>
+        <h1 class="hero-title my-5">Restorant<br><span>Lepenci</span></h1>
+        <div class="gold-divider"></div>
+        <p class="hero-sub mt-4 mb-8">Sllatinë-Kaçanik · Kosovë</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <button onclick="showPage('rezervo')" class="btn-solid">
+            <i class="fas fa-calendar-check mr-2"></i>Rezervo Tani
+          </button>
+          <button onclick="showPage('menu')" class="btn-primary">
+            <i class="fas fa-utensils mr-2"></i>Shiko Menunë
+          </button>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:center; width:100%; padding-top:2rem;">
+        <div class="scroll-dot"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT SNIPPET -->
+  <section id="about-home">
+    <div style="max-width:1100px; margin:0 auto;">
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+        <div class="fade-up">
+          <p class="section-label mb-3">Rreth nesh</p>
+          <h2 class="section-title mb-5">Tradita e <em>vërtetë</em> shqiptare</h2>
+          <div class="gold-divider" style="margin:0 0 1.5rem 0;"></div>
+          <p style="color:var(--cream-dark); font-family:'Cormorant Garamond',serif; font-size:1.05rem; line-height:1.9; margin-bottom:1rem;">
+            Restorant Lepenci është vendosur në fshatin Sllatinë të komunës së Kaçanikut, pranë lumit Lepenc, ku tingujt e ujit dhe shija e kuzhinës tradicionale shqiptare krijojnë një përvojë të papërsëritshme.
+          </p>
+          <p style="color:var(--stone); font-size:0.87rem; line-height:1.8; margin-bottom:2rem;">
+            Nga viti 2022, kemi kujdesur çdo pjatë me dashuri dhe ingredientë të freskëta lokale — nga mishi i skarës deri tek sallatat e kopshtit tonë.
+          </p>
+          <button onclick="showPage('historia')" class="btn-primary">Lexo Historinë</button>
+        </div>
+        <div class="fade-up" style="position:relative;">
+          <img src="Fotot e Ambientit/Ambienti2.jpeg" alt="Ambienti i restorantit" style="width:100%; object-fit:cover; aspect-ratio:4/3; border:1px solid rgba(201,168,76,0.25);">
+          <div style="position:absolute; top:-12px; left:-12px; right:12px; bottom:12px; border:1px solid rgba(201,168,76,0.18); pointer-events:none; z-index:-1;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="feature-grid">
+    <div style="max-width:1100px; margin:0 auto;">
+      <div class="text-center mb-12 fade-up">
+        <p class="section-label mb-3">Pse ne?</p>
+        <h2 class="section-title">Çfarë na bën <em>special</em></h2>
+        <div class="gold-divider"></div>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="feature-card fade-up">
+          <i class="fas fa-users fa-2x mb-4" style="color:var(--gold);"></i>
+          <h3 style="font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--cream); margin-bottom:0.8rem;">Stafi ynë</h3>
+          <p style="color:var(--stone); font-size:0.85rem; line-height:1.7;">Ekip i dedikuar dhe miqësor — gjithmonë gati t'ju shërbejë me kujdes dhe buzëqeshje.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <i class="fas fa-fire fa-2x mb-4" style="color:var(--gold);"></i>
+          <h3 style="font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--cream); margin-bottom:0.8rem;">Mish në skarë</h3>
+          <p style="color:var(--stone); font-size:0.85rem; line-height:1.7;">Mishi i zgjedhur, i pjekur me teknikat tradicionale të skarës mbi dru.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <i class="fas fa-leaf fa-2x mb-4" style="color:var(--gold);"></i>
+          <h3 style="font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--cream); margin-bottom:0.8rem;">Terraca pranë lumit</h3>
+          <p style="color:var(--stone); font-size:0.85rem; line-height:1.7;">Hani me tingujt e lumit — terraca jonë ofron pamje mahnitëse të natyrës.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY PREVIEW -->
+  <section class="gallery-preview">
+    <div style="max-width:1100px; margin:0 auto;">
+      <div class="text-center mb-12 fade-up">
+        <p class="section-label mb-3">Moment të kapura</p>
+        <h2 class="section-title"><em>Galeria</em> jonë</h2>
+        <div class="gold-divider"></div>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-2 fade-up">
+        <div class="gallery-wrap col-span-2 md:col-span-1 row-span-2">
+          <img src="Fotot e Ambientit/Ambienti3.jpeg" alt="Ambienti" class="gallery-img" style="aspect-ratio:3/4; height:100%; min-height:300px; object-fit:cover;">
+        </div>
+        <div class="gallery-wrap">
+          <img src="Fotot e Ushqimit/Ushqimi1.jpeg" alt="Mish në skarë" class="gallery-img">
+        </div>
+        <div class="gallery-wrap">
+          <img src="Fotot e Ambientit/Ambienti4.jpeg" alt="Restorant" class="gallery-img">
+        </div>
+        <div class="gallery-wrap">
+          <img src="Fotot e Ushqimit/Ushqimi2.jpeg" alt="Pjatë" class="gallery-img">
+        </div>
+        <div class="gallery-wrap">
+          <img src="Fotot e Ambientit/Ambienti5.jpeg" alt="Natyra" class="gallery-img">
+        </div>
+      </div>
+      <div class="text-center mt-8">
+        <button onclick="showPage('galeria')" class="btn-primary">Shiko Të Gjitha Fotot</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS SLIDER -->
+  <section id="reviews-section">
+    <div style="max-width:1100px; margin:0 auto;">
+      <div class="text-center mb-12 fade-up">
+        <p class="section-label mb-3">Çfarë thonë vizitorët</p>
+        <h2 class="section-title">Vlerësimet <em>tona</em></h2>
+        <div class="gold-divider"></div>
+      </div>
+
+      <div class="reviews-track-wrapper fade-up">
+        <div class="reviews-track" id="reviewsTrack">
+
+          <!-- Review 1 -->
+          <div class="review-slide">
+            <div class="review-card">
+              <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+              <p class="review-text">
+                Vendi është i mrekullueshëm, pranë lumit. Ushqimi ishte shumë i shijshëm dhe i freskët — veçanërisht peshku. Stafi shumë i sjellshëm dhe i shpejtë. Do ta rekomandoj me siguri.
+              </p>
+              <div class="review-author-name">Arben K.</div>
+              <div class="review-source"><i class="fab fa-google"></i>Google Reviews</div>
+            </div>
+          </div>
+
+          <!-- Review 2 -->
+          <div class="review-slide">
+            <div class="review-card">
+              <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+              <p class="review-text">
+                Ambienti pranë lumit të Lepencit është diçka e veçantë — ndihen tingujt e ujit gjatë gjithë kohës. Mishi në skarë ishte fantastik dhe porcionet shumë bujare. Do të kthehemi patjetër!
+              </p>
+              <div class="review-author-name">Valdete M.</div>
+              <div class="review-source"><i class="fab fa-google"></i>Google Reviews</div>
+            </div>
+          </div>
+
+          <!-- Review 3 -->
+          <div class="review-slide">
+            <div class="review-card">
+              <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+              <p class="review-text">
+                Restorant me ambient të jashtëzakonshëm në natyrë. Ushqimi tradicional shqiptar i gatuar me dashuri. Çmimet janë shumë të arsyeshme për cilësinë që ofrohet. Një ndër restorantet më të mira të rajonit.
+              </p>
+              <div class="review-author-name">Fisnik D.</div>
+              <div class="review-source"><i class="fab fa-google"></i>Google Reviews</div>
+            </div>
+          </div>
+
+          <!-- Review 4 -->
+          <div class="review-slide">
+            <div class="review-card">
+              <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+              <p class="review-text">
+                E vizituam për herë të parë me familje dhe ishim shumë të kënaqur. Terraca pranë lumit është e mrekullueshme, sallata dhe salca ishin të freskëta. Stafi është shumë i dashur dhe profesional.
+              </p>
+              <div class="review-author-name">Blerta H.</div>
+              <div class="review-source"><i class="fab fa-facebook"></i>Facebook</div>
+            </div>
+          </div>
+
+          <!-- Review 5 -->
+          <div class="review-slide">
+            <div class="review-card">
+              <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+              <p class="review-text">
+                Nga peshku i freskët deri tek ëmbëlsirat, gjithçka ishte e shkëlqyer. Natyra përreth restorantit të jep një ndjesi qetësie të rrallë. Rekomandohet për çdo rast — familje, miq apo evente private.
+              </p>
+              <div class="review-author-name">Liridon Sh.</div>
+              <div class="review-source"><i class="fab fa-google"></i>Google Reviews</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="reviews-nav">
+        <button class="rev-btn" onclick="moveReview(-1)" aria-label="Prapa">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="rev-dots" id="reviewDots"></div>
+        <button class="rev-btn" onclick="moveReview(1)" aria-label="Para">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA STRIP -->
+  <section class="cta-strip">
+    <div style="max-width:700px; margin:0 auto;">
+      <p class="section-label mb-3">Siguroni vendin tuaj</p>
+      <h2 class="section-title mb-6">Gati për <em>eksperiencën</em>?</h2>
+      <div class="gold-divider"></div>
+      <p style="color:var(--stone); font-family:'Cormorant Garamond',serif; font-size:1.05rem; margin:1.5rem 0 2rem; line-height:1.7;">
+        Rezervoni tavolinën tuaj dhe lëreni natyrën e lumit Lepenc të bëjë pjesën tjetër.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <button onclick="showPage('rezervo')" class="btn-solid">
+          <i class="fas fa-calendar-check mr-2"></i>Rezervo Tani
+        </button>
+        <button onclick="showPage('kontakt')" class="btn-primary">
+          <i class="fas fa-envelope mr-2"></i>Na Shkruani
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div style="max-width:1100px; margin:0 auto;">
+      <div class="grid md:grid-cols-3 gap-10 mb-10">
+        <div>
+          <div class="logo-text mb-1" style="font-size:1.8rem;">Lepenci</div>
+          <div class="logo-sub mb-4">Restorant & Kafé</div>
+          <div class="gold-divider" style="margin:0 0 1rem 0;"></div>
+          <p style="color:var(--stone); font-family:'Cormorant Garamond',serif; font-size:0.95rem; font-style:italic; line-height:1.8;">Ku natyra e lumit Lepenc takohet me traditën e kuzhinës shqiptare.</p>
+        </div>
+        <div>
+          <h4 class="section-label mb-5">Navigacion</h4>
+          <div class="flex flex-col gap-2">
+            <button onclick="showPage('historia')" style="text-align:left;background:none;border:none;cursor:pointer;color:var(--stone);font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--stone)'">Historia</button>
+            <button onclick="showPage('menu')" style="text-align:left;background:none;border:none;cursor:pointer;color:var(--stone);font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--stone)'">Menu</button>
+            <button onclick="showPage('galeria')" style="text-align:left;background:none;border:none;cursor:pointer;color:var(--stone);font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--stone)'">Galeria</button>
+            <button onclick="showPage('lokacioni')" style="text-align:left;background:none;border:none;cursor:pointer;color:var(--stone);font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--stone)'">Lokacioni</button>
+            <button onclick="showPage('rezervo')" style="text-align:left;background:none;border:none;cursor:pointer;color:var(--stone);font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--stone)'">Rezervo</button>
+            <button onclick="showPage('kontakt')" style="text-align:left;background:none;border:none;cursor:pointer;color:var(--stone);font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--stone)'">Kontakt</button>
+          </div>
+        </div>
+        <div>
+          <h4 class="section-label mb-5">Na Kontaktoni</h4>
+          <p style="color:var(--cream-dark); font-size:0.88rem; margin-bottom:0.3rem;"><i class="fas fa-phone mr-2" style="color:var(--gold);"></i>+383 48 222 546</p>
+          <p style="color:var(--stone); font-size:0.82rem; margin-bottom:0.5rem; padding-left:1.3rem;">+383 49 490 737</p>
+          <p style="color:var(--stone); font-size:0.82rem; line-height:1.7;">
+            <i class="fas fa-map-marker-alt mr-2" style="color:var(--gold);"></i>Sllatinë-Kaçanik, Kosovë
+          </p>
+          <div class="mt-5">
+            <h4 class="section-label mb-3">Rrjetet Sociale</h4>
+            <div class="flex gap-3">
+              <a href="https://www.instagram.com/restaurantlepenci/" target="_blank"
+                 style="width:42px;height:42px;border:1px solid rgba(201,168,76,0.3);display:inline-flex;align-items:center;justify-content:center;color:var(--cream-dark);font-size:1rem;transition:all 0.3s;text-decoration:none;"
+                 onmouseover="this.style.background='var(--gold)';this.style.color='var(--forest)'"
+                 onmouseout="this.style.background='transparent';this.style.color='var(--cream-dark)'"
+                 title="Instagram @restaurantlepenci">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="https://www.tiktok.com/@restaurantlepenci1" target="_blank"
+                 style="width:42px;height:42px;border:1px solid rgba(201,168,76,0.3);display:inline-flex;align-items:center;justify-content:center;color:var(--cream-dark);font-size:1rem;transition:all 0.3s;text-decoration:none;"
+                 onmouseover="this.style.background='var(--gold)';this.style.color='var(--forest)'"
+                 onmouseout="this.style.background='transparent';this.style.color='var(--cream-dark)'"
+                 title="TikTok @restaurantlepenci1">
+                <i class="fab fa-tiktok"></i>
+              </a>
+              <a href="https://www.facebook.com/Restaurant-Lepenci" target="_blank"
+                 style="width:42px;height:42px;border:1px solid rgba(201,168,76,0.3);display:inline-flex;align-items:center;justify-content:center;color:var(--cream-dark);font-size:1rem;transition:all 0.3s;text-decoration:none;"
+                 onmouseover="this.style.background='var(--gold)';this.style.color='var(--forest)'"
+                 onmouseout="this.style.background='transparent';this.style.color='var(--cream-dark)'"
+                 title="Facebook Restaurant Lepenci">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center pt-8" style="border-top:1px solid rgba(201,168,76,0.1);">
+        <p style="color:var(--stone); font-size:0.75rem;">© 2025 Restorant Lepenci. Të gjitha të drejtat e rezervuara.</p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     HISTORIA PAGE
+══════════════════════════════════════════════ -->
+<div id="page-historia" class="page full-page">
+  <div class="page-hero">
+    <p class="section-label mb-3">Rreth nesh</p>
+    <h1 class="section-title"><em>Historia</em> jonë</h1>
+    <div class="gold-divider"></div>
+  </div>
+  <div class="page-body">
+    <div class="grid md:grid-cols-2 gap-16 items-start mb-16 fade-up">
+      <div>
+        <p class="section-label mb-3">Nga 2022</p>
+        <h2 class="section-title mb-6">Eksperiencë <em>profesionale</em></h2>
+        <div class="gold-divider" style="margin:0 0 1.5rem 0;"></div>
+        <p style="color:var(--cream-dark); font-family:'Cormorant Garamond',serif; font-size:1.08rem; line-height:1.9; margin-bottom:1.2rem;">
+          Restorant Lepenci u themelua në vitin <strong style="color:var(--gold);">2022</strong>, me një vizion të qartë: të sjellë kuzhinën e pasur shqiptare në zemër të natyrës së lumit Lepenc.
+        </p>
+        <p style="color:var(--stone); font-size:0.88rem; line-height:1.9; margin-bottom:1.2rem;">
+          Që nga hapi i parë, ekipi ynë i kuzhinës ka punuar me standarde të larta profesionale, duke kombinuar receta tradicionale të trashëguara brez pas brezi me teknika moderne të gatimit. Çdo pjatë është rezultat i angazhimit tonë ndaj cilësisë dhe freskisë.
+        </p>
+        <p style="color:var(--stone); font-size:0.88rem; line-height:1.9; margin-bottom:1.2rem;">
+          Që nga hapi i parë, kemi shërbyer mbi <strong style="color:var(--gold-light);">mijëra klientë</strong> dhe kemi ndërtuar reputacionin e restorantit të preferuar të rajonit — vendit ku familjet dhe miqtë mblidhen për momente të paharrueshme.
+        </p>
+        <p style="color:var(--stone); font-size:0.88rem; line-height:1.9;">
+          Stafi ynë i kualifikuar, me eksperiencë nga sektori i hotelerisë kosovare dhe ndërkombëtare, garanton një shërbim të lartë dhe mikpritje autentike shqiptare. Ne nuk jemi vetëm një restorant — jemi një eksperiencë.
+        </p>
+      </div>
+      <div>
+        <img src="Fotot e Ambientit/Ambienti6.jpeg" alt="Historia e restorantit" style="width:100%; object-fit:cover; aspect-ratio:4/3; border:1px solid rgba(201,168,76,0.25);">
+
+        <div class="grid grid-cols-3 gap-4 mt-6">
+          <div style="text-align:center; background:rgba(255,255,255,0.03); border:1px solid rgba(201,168,76,0.12); padding:1.5rem 0.5rem;">
+            <div style="font-family:'Playfair Display',serif; font-size:2rem; color:var(--gold); font-weight:700;">3+</div>
+            <div style="font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--stone); margin-top:0.3rem;">Vite Eksperiencë</div>
+          </div>
+          <div style="text-align:center; background:rgba(255,255,255,0.03); border:1px solid rgba(201,168,76,0.12); padding:1.5rem 0.5rem;">
+            <div style="font-family:'Playfair Display',serif; font-size:2rem; color:var(--gold); font-weight:700;">50+</div>
+            <div style="font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--stone); margin-top:0.3rem;">Pjata në Menu</div>
+          </div>
+          <div style="text-align:center; background:rgba(255,255,255,0.03); border:1px solid rgba(201,168,76,0.12); padding:1.5rem 0.5rem;">
+            <div style="font-family:'Playfair Display',serif; font-size:2rem; color:var(--gold); font-weight:700;">★★★★★</div>
+            <div style="font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--stone); margin-top:0.3rem;">Vlerësim</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Milestones -->
+    <div class="fade-up" style="border:1px solid rgba(201,168,76,0.12); border-top:2px solid var(--gold); padding:2.5rem; background:rgba(255,255,255,0.02);">
+      <h3 style="font-family:'Playfair Display',serif; font-size:1.5rem; color:var(--cream); margin-bottom:2rem; text-align:center;">Arritjet tona <em style="color:var(--gold);">deri sot</em></h3>
+      <div class="grid md:grid-cols-4 gap-6">
+        <div style="text-align:center;">
+          <div style="width:52px;height:52px;border-radius:50%;background:rgba(201,168,76,0.1);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;"><i class="fas fa-door-open" style="color:var(--gold);font-size:1.2rem;"></i></div>
+          <p style="font-family:'Playfair Display',serif; font-size:1rem; color:var(--cream); margin-bottom:0.5rem; font-weight:600;">Hapja</p>
+          <div style="width:40px;height:1px;background:var(--gold);margin:0 auto 0.8rem;"></div>
+          <p style="color:var(--stone); font-size:0.82rem; line-height:1.7;">Hapja zyrtare e restorantit me vizionin e kuzhinës tradicionale shqiptare pranë lumit Lepenc.</p>
+        </div>
+        <div style="text-align:center;">
+          <div style="width:52px;height:52px;border-radius:50%;background:rgba(201,168,76,0.1);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;"><i class="fas fa-expand-arrows-alt" style="color:var(--gold);font-size:1.2rem;"></i></div>
+          <p style="font-family:'Playfair Display',serif; font-size:1rem; color:var(--cream); margin-bottom:0.5rem; font-weight:600;">Zgjerimi</p>
+          <div style="width:40px;height:1px;background:var(--gold);margin:0 auto 0.8rem;"></div>
+          <p style="color:var(--stone); font-size:0.82rem; line-height:1.7;">Zgjerimi i terraces dhe shtimi i kapacitetit për të pritur grupe të mëdha dhe evente private.</p>
+        </div>
+        <div style="text-align:center;">
+          <div style="width:52px;height:52px;border-radius:50%;background:rgba(201,168,76,0.1);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;"><i class="fas fa-seedling" style="color:var(--gold);font-size:1.2rem;"></i></div>
+          <p style="font-family:'Playfair Display',serif; font-size:1rem; color:var(--cream); margin-bottom:0.5rem; font-weight:600;">Partneritete lokale</p>
+          <div style="width:40px;height:1px;background:var(--gold);margin:0 auto 0.8rem;"></div>
+          <p style="color:var(--stone); font-size:0.82rem; line-height:1.7;">Bashkëpunim me fermerët lokalë për ingredientë ultra-të freskëta dhe menu sezonale.</p>
+        </div>
+        <div style="text-align:center;">
+          <div style="width:52px;height:52px;border-radius:50%;background:rgba(201,168,76,0.1);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;"><i class="fas fa-star" style="color:var(--gold);font-size:1.2rem;"></i></div>
+          <p style="font-family:'Playfair Display',serif; font-size:1rem; color:var(--cream); margin-bottom:0.5rem; font-weight:600;">Njohja</p>
+          <div style="width:40px;height:1px;background:var(--gold);margin:0 auto 0.8rem;"></div>
+          <p style="color:var(--stone); font-size:0.82rem; line-height:1.7;">Njohja si njëri nga restorantet më të preferuara të rajonit — me mijëra klientë të kënaqur.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer id="footer" style="background:#0D1A0D;border-top:1px solid rgba(201,168,76,0.2);padding:2.5rem 2rem;text-align:center;">
+    <p style="color:var(--stone); font-size:0.75rem;">© 2025 Restorant Lepenci · <button onclick="showPage('home')" style="background:none;border:none;cursor:pointer;color:var(--gold);font-size:0.75rem;">Kthehu në Home</button></p>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MENU PAGE
+══════════════════════════════════════════════ -->
+<div id="page-menu" class="page full-page">
+  <div class="page-hero">
+    <p class="section-label mb-3">Kuzhinë tradicionale</p>
+    <h1 class="section-title">Menu <em>jonë</em></h1>
+    <div class="gold-divider"></div>
+    <p style="color:var(--stone); font-size:0.85rem; margin-top:1rem; font-style:italic;">"Çdo gjë e freskët. Çdo gjë me dashuri."</p>
+  </div>
+  <div class="page-body">
+
+    <!-- Category Tabs -->
+    <div class="menu-category-tabs fade-up">
+      <button class="menu-cat-btn active" onclick="switchMenuCat('sallata', this)">🥗 Sallata</button>
+      <button class="menu-cat-btn" onclick="switchMenuCat('supasoupe', this)">🍲 Supa</button>
+      <button class="menu-cat-btn" onclick="switchMenuCat('mish', this)">🥩 Mish</button>
+      <button class="menu-cat-btn" onclick="switchMenuCat('peshk', this)">🐟 Peshk</button>
+      <button class="menu-cat-btn" onclick="switchMenuCat('pasta', this)">🍝 Pasta & Rizoto</button>
+      <button class="menu-cat-btn" onclick="switchMenuCat('pica', this)">🍕 Pica</button>
+      <button class="menu-cat-btn" onclick="switchMenuCat('embelsira', this)">🍮 Ëmbëlsira</button>
+      <button class="menu-cat-btn" onclick="switchMenuCat('pije', this)">🥂 Pije</button>
+    </div>
+
+    <!-- SALLATA -->
+    <div id="menu-sallata" class="menu-panel active fade-up">
+      <div class="menu-card">
+        <h3 style="font-family:'Playfair Display',serif; color:var(--gold); margin-bottom:1.5rem; font-size:1.4rem;">Sallata</h3>
+        <div class="menu-item"><div><div class="menu-item-name">Sallata Tradicionale</div><div class="menu-item-desc">Domate, kastravec, speca, qepë, djath feta, ulliri</div></div><div class="menu-item-price">2.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Sallata Cezar</div><div class="menu-item-desc">Marulë romaine, pule e pjekur, salcë cezar, krispe, parmezan</div></div><div class="menu-item-price">4.50€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Sallata me Ton</div><div class="menu-item-desc">Ton i freskët, marulë, domate, kaperi, limon, ulliri</div></div><div class="menu-item-price">4.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Sallata Greke</div><div class="menu-item-desc">Perime të freskëta, djath feta, ulliri të zezë, rigon</div></div><div class="menu-item-price">3.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Sallata e Stinës</div><div class="menu-item-desc">Perime sipas sezonit nga kopshti ynë lokal</div></div><div class="menu-item-price">2.50€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Tarator</div><div class="menu-item-desc">Kos, kastravec, hudhër, kopër — freskuese dhe tradicionale</div></div><div class="menu-item-price">2.00€</div></div>
+      </div>
+    </div>
+
+    <!-- SUPA -->
+    <div id="menu-supasoupe" class="menu-panel fade-up">
+      <div class="menu-card">
+        <h3 style="font-family:'Playfair Display',serif; color:var(--gold); margin-bottom:1.5rem; font-size:1.4rem;">Supa</h3>
+        <div class="menu-item"><div><div class="menu-item-name">Supë Pule</div><div class="menu-item-desc">Pulë e shtëpisë, perime, makarona, erëza tradicionale</div></div><div class="menu-item-price">2.50€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Supë Peshku</div><div class="menu-item-desc">Peshk i freskët nga lumi, perime, lëng limoni</div></div><div class="menu-item-price">3.50€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Supë Qengji</div><div class="menu-item-desc">Qengji i zgjedhur, patate, karrota, majdanoz</div></div><div class="menu-item-price">3.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Supë Kërpudhash</div><div class="menu-item-desc">Kërpudha të freskëta, krem, hudhër, trumëz</div></div><div class="menu-item-price">3.00€</div></div>
+      </div>
+    </div>
+
+    <!-- MISH -->
+    <div id="menu-mish" class="menu-panel fade-up">
+      <div class="menu-card">
+        <h3 style="font-family:'Playfair Display',serif; color:var(--gold); margin-bottom:1.5rem; font-size:1.4rem;">Mish në Skarë</h3>
+        <div class="menu-item"><div><div class="menu-item-name">Qebap traditional</div><div class="menu-item-desc">Mish viçi i bluar, erëza të zgjedhura, bukë tradicionale</div></div><div class="menu-item-price">6.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Biftek Viçi</div><div class="menu-item-desc">Ribeye 250g, erëza, gjalpë bari, patate e pjekur</div></div><div class="menu-item-price">12.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Kotelet Qengji</div><div class="menu-item-desc">Kotelet të freskëta qengji, rozmarin, hudhër, limon</div></div><div class="menu-item-price">10.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Pule e Skarës</div><div class="menu-item-desc">Fileto pule, marinadë me lemon e hudhër, perime sezoni</div></div><div class="menu-item-price">7.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Shish Qebap</div><div class="menu-item-desc">Mish i alternuar me perime, salcë spec, bukë pita</div></div><div class="menu-item-price">7.50€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Tavë Kosi</div><div class="menu-item-desc">Qengji i pjekur me kos dhe vezë, recetë tradicionale shqiptare</div></div><div class="menu-item-price">9.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Mish i Pjekur (Porcë)</div><div class="menu-item-desc">Bërxollë derri e pjekur ngadalë, me lakër të kuq dhe salcë</div></div><div class="menu-item-price">8.00€</div></div>
+      </div>
+    </div>
+
+    <!-- PESHK -->
+    <div id="menu-peshk" class="menu-panel fade-up">
+      <div class="menu-card">
+        <h3 style="font-family:'Playfair Display',serif; color:var(--gold); margin-bottom:1.5rem; font-size:1.4rem;">Peshk i freskët</h3>
+        <div class="menu-item"><div><div class="menu-item-name">Trofta e Skarës</div><div class="menu-item-desc">Troftë e kapur nga lumi Lepenc, limon, bari të freskëta</div></div><div class="menu-item-price">9.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Krap i Pjekur</div><div class="menu-item-desc">Krap i freskët, erëza tradicionale, patate e pjekur</div></div><div class="menu-item-price">8.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Peshk i Tymosur</div><div class="menu-item-desc">Teknikë tradicionale tymimi, shoqëruar me salcë bajame</div></div><div class="menu-item-price">10.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Fileto Peshku</div><div class="menu-item-desc">Fileto e pjekur në gjalpë, me perime të sezonit dhe limon</div></div><div class="menu-item-price">11.00€</div></div>
+      </div>
+    </div>
+
+    <!-- PASTA -->
+    <div id="menu-pasta" class="menu-panel fade-up">
+      <div class="menu-card">
+        <h3 style="font-family:'Playfair Display',serif; color:var(--gold); margin-bottom:1.5rem; font-size:1.4rem;">Pasta & Rizoto</h3>
+        <div class="menu-item"><div><div class="menu-item-name">Spageti Boloneze</div><div class="menu-item-desc">Salcë mishi tradicionale, parmezan, borzilok</div></div><div class="menu-item-price">6.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Penne Arrabbiata</div><div class="menu-item-desc">Salcë domate pikante, hudhër, spec, borzilok</div></div><div class="menu-item-price">5.50€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Fettuccine Karbonara</div><div class="menu-item-desc">Salcë vezë, pancetta, parmezan, piper i zi</div></div><div class="menu-item-price">7.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Rizoto me Kërpudha</div><div class="menu-item-desc">Kërpudha të egra, krem, parmezan, trumëz</div></div><div class="menu-item-price">7.50€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Rizoto me Peshk</div><div class="menu-item-desc">Peshk i freskët nga lumi, krem, verë e bardhë, borzilok</div></div><div class="menu-item-price">9.00€</div></div>
+      </div>
+    </div>
+
+    <!-- PICA -->
+    <div id="menu-pica" class="menu-panel fade-up">
+      <div class="menu-card">
+        <h3 style="font-family:'Playfair Display',serif; color:var(--gold); margin-bottom:1.5rem; font-size:1.4rem;">Pica</h3>
+        <div class="menu-item"><div><div class="menu-item-name">Pica Margarita</div><div class="menu-item-desc">Salcë domate, mozzarella, borzilok i freskët</div></div><div class="menu-item-price">5.50€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Pica Lepenci</div><div class="menu-item-desc">Salcë domate, mozzarella, mish qebap, qepë, spec, djath</div></div><div class="menu-item-price">8.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Pica BBQ Pule</div><div class="menu-item-desc">Salcë BBQ, pule e pjekur, qepë e kuqe, mozzarella</div></div><div class="menu-item-price">7.50€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Pica 4 Djathë</div><div class="menu-item-desc">Mozzarella, gorgonzola, parmezan, gouda</div></div><div class="menu-item-price">7.00€</div></div>
+      </div>
+    </div>
+
+    <!-- EMBËLSIRA -->
+    <div id="menu-embelsira" class="menu-panel fade-up">
+      <div class="menu-card">
+        <h3 style="font-family:'Playfair Display',serif; color:var(--gold); margin-bottom:1.5rem; font-size:1.4rem;">Ëmbëlsira</h3>
+        <div class="menu-item"><div><div class="menu-item-name">Bakllavë</div><div class="menu-item-desc">Bakllavë tradicionale shqiptare me mjaltë dhe arra</div></div><div class="menu-item-price">2.50€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Tiramisù</div><div class="menu-item-desc">Recetë italiane, bisquitë savoiardi, kafe, mascarpone</div></div><div class="menu-item-price">3.50€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Kadaif</div><div class="menu-item-desc">Kadaif traditional me krem dhe arra të copëtuara</div></div><div class="menu-item-price">3.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Akullore</div><div class="menu-item-desc">Akullore artizanale — çokollatë, vanilje, luleshtrydhe</div></div><div class="menu-item-price">2.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Sutliaç</div><div class="menu-item-desc">Orizë me qumësht, sheqer, kanellë — ëmbëlsirë tradicionale</div></div><div class="menu-item-price">2.50€</div></div>
+      </div>
+    </div>
+
+    <!-- PIJE -->
+    <div id="menu-pije" class="menu-panel fade-up">
+      <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(201,168,76,0.15); border-top:2px solid var(--gold); padding:2rem;">
+        <div class="drink-subtabs">
+          <button class="drink-sub-btn active" onclick="switchDrink('freskuese', this)">🧃 Freskuese</button>
+          <button class="drink-sub-btn" onclick="switchDrink('birra', this)">🍺 Birra</button>
+          <button class="drink-sub-btn" onclick="switchDrink('vera', this)">🍷 Vera</button>
+          <button class="drink-sub-btn" onclick="switchDrink('alkool', this)">🥃 Alkool & Kokteile</button>
+          <button class="drink-sub-btn" onclick="switchDrink('kafe', this)">☕ Kafja & Ngrohtëse</button>
+        </div>
+
+        <div id="drink-freskuese" class="drink-panel active">
+          <div class="menu-item"><div><div class="menu-item-name">Ujë mineral</div><div class="menu-item-desc">0.5L / 1.5L</div></div><div class="menu-item-price">0.80€ / 1.20€</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Coca-Cola / Fanta / Sprite</div><div class="menu-item-desc">0.33L, e ftohtë</div></div><div class="menu-item-price">1.50€</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Lëng frutash</div><div class="menu-item-desc">Portokall, mollë, vishnjë, domate</div></div><div class="menu-item-price">1.50€</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Limonadë shtëpie</div><div class="menu-item-desc">Limon i freskët, mjaltë, borzilok, akull</div></div><div class="menu-item-price">2.00€</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Kos me sode</div><div class="menu-item-desc">Kos i fshatit, ujë mineral, kripë — traditional ballkanik</div></div><div class="menu-item-price">1.50€</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Red Bull</div><div class="menu-item-desc">250ml energetike</div></div><div class="menu-item-price">2.50€</div></div>
+        </div>
+
+        <div id="drink-birra" class="drink-panel">
+          <div class="menu-item"><div><div class="menu-item-name">Birra Peja</div><div class="menu-item-desc">0.33L / 0.5L — Birra kosovare, e freskët</div></div><div class="menu-item-price">1.50€ / 2.00€</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Birra Heineken</div><div class="menu-item-desc">0.33L — Importuar</div></div><div class="menu-item-price">2.00€</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Birra Corona</div><div class="menu-item-desc">0.33L me limon</div></div><div class="menu-item-price">2.50€</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Birra pa alkool</div><div class="menu-item-desc">Becks Blue, 0.33L</div></div><div class="menu-item-price">2.00€</div></div>
+        </div>
+
+        <div id="drink-vera" class="drink-panel">
+          <div class="menu-item"><div><div class="menu-item-name">Verë e bardhë — Stone Castle</div><div class="menu-item-desc">Çeliku/Chardonnay — 0.75L</div></div><div class="menu-item-price">8.00€</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Verë e kuqe — Stone Castle Vranac</div><div class="menu-item-desc">Varieteti Vranac, e thatë — 0.75L</div></div><div class="menu-item-price">9.00€</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Verë rozë — Shtato</div><div class="menu-item-desc">Verë kosovare e lehtë rozë — 0.75L</div></div><div class="menu-item-price">8.00€</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Shampanjë</div><div class="menu-item-desc">Prosecco italiano — 0.75L</div></div><div class="menu-item-price">15.00€</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Gotë vere</div><div class="menu-item-desc">E bardhë ose e kuqe — 0.2L</div></div><div class="menu-item-price">2.50€</div></div>
+        </div>
+
+        <div id="drink-alkool" class="drink-panel">
+          <div class="menu-item"><div><div class="menu-item-name">Raki Rrushi</div><div class="menu-item-desc">Raki tradicionale shqiptare — 50ml</div></div><div class="menu-item-price">1.50€</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Raki Mani</div><div class="menu-item-desc">Raki ftoi / mani — 50ml</div></div><div class="menu-item-price">2.00€</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Whisky Jack Daniel's</div><div class="menu-item-desc">50ml, me akull ose i kulluar</div></div><div class="menu-item-price">3.00€</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Vodka Smirnoff</div><div class="menu-item-desc">50ml</div></div><div class="menu-item-price">2.50€</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Aperol Spritz</div><div class="menu-item-desc">Aperol, Prosecco, sode, portokall</div></div><div class="menu-item-price">4.00€</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Mojito</div><div class="menu-item-desc">Rum, mente, limon, sode, sheqer kaf</div></div><div class="menu-item-price">4.50€</div></div>
+        </div>
+
+        <div id="drink-kafe" class="drink-panel">
+          <div class="menu-item"><div><div class="menu-item-name">Kafe turke</div><div class="menu-item-desc">E zezë tradicionale, me sheqer ose pa</div></div><div class="menu-item-price">0.80€</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Espresso</div><div class="menu-item-desc">Kafje e koncentruar — single shot</div></div><div class="menu-item-price">1.00€</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Cappuccino</div><div class="menu-item-desc">Espresso me qumësht i shkumëzuar</div></div><div class="menu-item-price">1.50€</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Macchiato</div><div class="menu-item-desc">Espresso me pak qumësht</div></div><div class="menu-item-price">1.20€</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Çaj bimor</div><div class="menu-item-desc">Kamomil, nane, lule bore, trumëz</div></div><div class="menu-item-price">1.00€</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Çokollatë e nxehtë</div><div class="menu-item-desc">Qumësht i ngrohtë me çokollatë artizanale</div></div><div class="menu-item-price">2.00€</div></div>
+        </div>
+      </div>
+    </div>
+
+    <p style="color:var(--stone); font-size:0.75rem; text-align:center; margin-top:2rem; font-style:italic;">* Çmimet janë me TVSH. Menu mund të ndryshojë sipas disponueshmërisë sezonale.</p>
+  </div>
+  <footer style="background:#0D1A0D;border-top:1px solid rgba(201,168,76,0.2);padding:2rem;text-align:center;">
+    <p style="color:var(--stone);font-size:0.75rem;">© 2025 Restorant Lepenci · <button onclick="showPage('home')" style="background:none;border:none;cursor:pointer;color:var(--gold);font-size:0.75rem;">Kthehu në Home</button></p>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     GALERIA PAGE
+══════════════════════════════════════════════ -->
+<div id="page-galeria" class="page full-page">
+  <div class="page-hero">
+    <p class="section-label mb-3">Moment të kapura</p>
+    <h1 class="section-title"><em>Galeria</em> jonë</h1>
+    <div class="gold-divider"></div>
+  </div>
+  <div class="page-body">
+    <!-- Note about Instagram photos -->
+    <div style="text-align:center; margin-bottom:2rem; padding:1rem; background:rgba(201,168,76,0.06); border:1px solid rgba(201,168,76,0.15);">
+      <p style="color:var(--stone); font-size:0.8rem;"><i class="fab fa-instagram mr-2" style="color:var(--gold);"></i>Fotografitë janë nga <a href="https://www.instagram.com/restaurantlepenci/" target="_blank" style="color:var(--gold);">@restaurantlepenci</a> · Na ndiqni për më shumë!</p>
+    </div>
+
+    <style>
+      .gal-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        padding: 0.5rem 0;
+      }
+      @media (max-width: 1024px) {
+        .gal-grid { grid-template-columns: repeat(3, 1fr); }
+      }
+      @media (max-width: 640px) {
+        .gal-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+      }
+      @media (max-width: 380px) {
+        .gal-grid { grid-template-columns: 1fr 1fr; gap: 5px; }
+      }
+      .gal-card {
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        border-left: 2px solid var(--gold);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        background: var(--forest-mid);
+        transition: box-shadow 0.35s ease, transform 0.35s ease;
+        aspect-ratio: 1 / 1;
+      }
+      .gal-card:hover {
+        box-shadow: 0 6px 22px rgba(201,168,76,0.25), 0 3px 12px rgba(0,0,0,0.4);
+        transform: translateY(-2px);
+      }
+      .gal-card .gal-item {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      .gal-card .gal-item img {
+        width: 100%; height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.5s ease, filter 0.5s ease;
+        filter: brightness(0.9) saturate(0.9);
+      }
+      .gal-card:hover .gal-item img {
+        transform: scale(1.07);
+        filter: brightness(1) saturate(1.05);
+      }
+      .gal-overlay {
+        position: absolute; inset: 0;
+        background: linear-gradient(to top, rgba(5,15,5,0.78) 0%, transparent 55%);
+        opacity: 0;
+        transition: opacity 0.35s ease;
+        display: flex; align-items: flex-end;
+        padding: 0.6rem 0.6rem 0.6rem 0.8rem;
+        z-index: 2;
+      }
+      .gal-card:hover .gal-overlay { opacity: 1; }
+      .gal-overlay span {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 0.75rem;
+        font-style: italic;
+        color: var(--cream);
+        letter-spacing: 0.05em;
+        line-height: 1.3;
+      }
+      /* Remove tall/wide classes — all uniform now */
+      .gal-wide { grid-column: span 1; }
+      .gal-tall { grid-row: span 1; }
+    </style>
+
+    <div class="gal-grid fade-up">
+
+      <!-- ROW 1 -->
+      <div class="gal-card gal-tall">
+        <div class="gal-item"><img src="Fotot e Ambientit/Ambienti1.jpeg" alt="Ambienti" loading="lazy"></div>
+        <div class="gal-overlay"><span>Restaurant Lepenci</span></div>
+      </div>
+      <div class="gal-card">
+        <div class="gal-item"><img src="Fotot e Ambientit/Ambienti2.jpeg" alt="Terraca" loading="lazy"></div>
+        <div class="gal-overlay"><span>Restaurant Lepenci</span></div>
+      </div>
+      <div class="gal-card">
+        <div class="gal-item"><img src="Fotot e Ushqimit/Ushqimi1.jpeg" alt="Mish skarë" loading="lazy"></div>
+        <div class="gal-overlay"><span>Restaurant Lepenci</span></div>
+      </div>
+      <div class="gal-card">
+        <div class="gal-item"><img src="Fotot e Ambientit/Ambienti7.jpeg" alt="Brendshme" loading="lazy"></div>
+        <div class="gal-overlay"><span>Restaurant Lepenci</span></div>
+      </div>
+
+      <!-- ROW 2 (col 2-4 sepse col 1 eshte tall) -->
+      <div class="gal-card">
+        <div class="gal-item"><img src="Fotot e Ushqimit/Ushqimi2.jpeg" alt="Peshk" loading="lazy"></div>
+        <div class="gal-overlay"><span>Restaurant Lepenci</span></div>
+      </div>
+      <div class="gal-card">
+        <div class="gal-item"><img src="Fotot e Ambientit/Ambienti3.jpeg" alt="Kopshti" loading="lazy"></div>
+        <div class="gal-overlay"><span>Restaurant Lepenci</span></div>
+      </div>
+      <div class="gal-card">
+        <div class="gal-item"><img src="Fotot e Ambientit/Ambienti8.jpeg" alt="Salla hëna" loading="lazy"></div>
+        <div class="gal-overlay"><span>Restaurant Lepenci</span></div>
+      </div>
+
+      <!-- ROW 3 -->
+      <div class="gal-card gal-wide">
+        <div class="gal-item"><img src="Fotot e Ambientit/Ambienti4.jpeg" alt="Pamje e ambientit" loading="lazy"></div>
+        <div class="gal-overlay"><span>Restaurant Lepenci</span></div>
+      </div>
+      <div class="gal-card">
+        <div class="gal-item"><img src="Fotot e Ushqimit/Ushqimi3.jpeg" alt="Pjata" loading="lazy"></div>
+        <div class="gal-overlay"><span>Restaurant Lepenci</span></div>
+      </div>
+      <div class="gal-card">
+        <div class="gal-item"><img src="Fotot e Ambientit/Ambienti9.jpeg" alt="Romantik" loading="lazy"></div>
+        <div class="gal-overlay"><span>Restaurant Lepenci</span></div>
+      </div>
+
+      <!-- ROW 4 -->
+      <div class="gal-card">
+        <div class="gal-item"><img src="Fotot e Ambientit/Ambienti5.jpeg" alt="Natyra" loading="lazy"></div>
+        <div class="gal-overlay"><span>Restaurant Lepenci</span></div>
+      </div>
+      <div class="gal-card">
+        <div class="gal-item"><img src="Fotot e Ambientit/Ambienti10.jpeg" alt="Terraca lumi" loading="lazy"></div>
+        <div class="gal-overlay"><span>Restaurant Lepenci</span></div>
+      </div>
+      <div class="gal-card">
+        <div class="gal-item"><img src="Fotot e Ushqimit/Ushqimi4.jpeg" alt="Mish i freskët" loading="lazy"></div>
+        <div class="gal-overlay"><span>Restaurant Lepenci</span></div>
+      </div>
+      <div class="gal-card">
+        <div class="gal-item"><img src="Fotot e Ambientit/Ambienti6.jpeg" alt="Lumi Lepenc" loading="lazy"></div>
+        <div class="gal-overlay"><span>Restaurant Lepenci</span></div>
+      </div>
+
+      <!-- ROW 5 -->
+      <div class="gal-card">
+        <div class="gal-item"><img src="Fotot e Ambientit/Ambienti11.jpeg" alt="Salla evente" loading="lazy"></div>
+        <div class="gal-overlay"><span>Restaurant Lepenci</span></div>
+      </div>
+      <div class="gal-card gal-wide">
+        <div class="gal-item"><img src="Fotot e Ushqimit/Ushqimi5.jpeg" alt="Salmon" loading="lazy"></div>
+        <div class="gal-overlay"><span>Restaurant Lepenci</span></div>
+      </div>
+
+    </div>
+
+    <!-- Instagram follow CTA -->
+    <div style="margin-top:2.5rem; text-align:center; padding:2rem; background:rgba(201,168,76,0.04); border:1px solid rgba(201,168,76,0.12);">
+      <div style="display:flex; align-items:center; justify-content:center; gap:0.8rem; margin-bottom:0.8rem;">
+        <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);display:flex;align-items:center;justify-content:center;">
+          <i class="fab fa-instagram" style="color:#fff; font-size:1rem;"></i>
+        </div>
+        <div style="text-align:left;">
+          <p style="font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold);">Na ndiqni</p>
+          <p style="font-family:'Playfair Display',serif; font-size:1rem; color:var(--cream);">@restaurantlepenci</p>
+        </div>
+      </div>
+      <p style="color:var(--stone); font-size:0.82rem; margin-bottom:1.2rem;">Foto dhe video të freskëta çdo javë — momente nga kuzhina, terraca dhe natyra jonë.</p>
+      <a href="https://www.instagram.com/restaurantlepenci/" target="_blank" class="btn-primary" style="display:inline-flex;align-items:center;gap:0.6rem;font-size:0.68rem;">
+        <i class="fab fa-instagram"></i> Hap Instagram
+      </a>
+    </div>
+  </div>
+  <footer style="background:#0D1A0D;border-top:1px solid rgba(201,168,76,0.2);padding:2rem;text-align:center;margin-top:3rem;">
+    <p style="color:var(--stone);font-size:0.75rem;">© 2025 Restorant Lepenci · <button onclick="showPage('home')" style="background:none;border:none;cursor:pointer;color:var(--gold);font-size:0.75rem;">Kthehu në Home</button></p>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     LOKACIONI PAGE
+══════════════════════════════════════════════ -->
+<div id="page-lokacioni" class="page full-page">
+  <div class="page-hero">
+    <p class="section-label mb-3">Gjeni na</p>
+    <h1 class="section-title"><em>Lokacioni</em> ynë</h1>
+    <div class="gold-divider"></div>
+  </div>
+  <div class="page-body">
+
+    <div class="grid md:grid-cols-3 gap-8 mb-12 fade-up">
+      <!-- Google Maps - Correct location -->
+      <div class="md:col-span-2">
+        <p class="section-label mb-3">Harta</p>
+        <iframe
+          src="https://www.google.com/maps?q=42.26465842364834,21.17117973320804&z=16&output=embed"
+          width="100%" height="400" style="border:0;" class="map-embed" allowfullscreen loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+        <a href="https://www.google.com/maps?q=42.26465842364834,21.17117973320804" target="_blank" style="color:var(--gold); font-size:0.72rem; text-decoration:none; margin-top:0.5rem; display:inline-block;">
+          <i class="fas fa-external-link-alt mr-1"></i>Hap në Google Maps
+        </a>
+      </div>
+
+      <!-- Info -->
+      <div class="flex flex-col gap-4">
+        <div class="info-card">
+          <div class="section-label mb-2"><i class="fas fa-map-marker-alt mr-2"></i>Adresa</div>
+          <p style="color:var(--cream-dark); font-family:'Cormorant Garamond',serif; font-size:1rem; line-height:1.7;">
+            Sllatinë-Kaçanik, Kosovë<br><p style="font-family: section-label;">757C+VF7, Sllatinë 70520</p>
+          </p>
+          <a href="https://www.google.com/maps?q=42.26465842364834,21.17117973320804" target="_blank" style="color:var(--gold); font-size:0.72rem; text-decoration:none; margin-top:0.5rem; display:inline-block;">
+            <i class="fas fa-external-link-alt mr-1"></i>Hap në Google Maps
+          </a>
+        </div>
+        <div class="info-card">
+          <div class="section-label mb-2"><i class="fas fa-clock mr-2"></i>Orari i Punës</div>
+          <p style="color:var(--cream-dark); font-size:0.88rem; line-height:1.9;">
+            <span style="color:var(--gold);">E Hënë – E Diel:</span><br>
+            07:00 – 24:00
+          </p>
+        </div>
+        <div class="info-card">
+          <div class="section-label mb-2"><i class="fas fa-phone mr-2"></i>Kontakti</div>
+          <p style="color:var(--cream-dark); font-size:0.88rem; margin-bottom:0.2rem;">+383 48 222 546</p>
+          <p style="color:var(--stone); font-size:0.82rem; margin-bottom:0.2rem;">+383 49 490 737</p>
+          <a href="https://wa.me/38348222546" target="_blank" class="btn-solid" style="display:inline-flex;align-items:center;gap:0.5rem;margin-top:0.8rem;font-size:0.68rem;padding:0.6rem 1.2rem;">
+            <i class="fab fa-whatsapp"></i>WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drone Video Announcement -->
+    <div class="fade-up" style="max-width:700px; margin:0 auto;">
+      <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(201,168,76,0.2); border-left:4px solid var(--gold); padding:2.5rem 2.8rem; position:relative; overflow:hidden;">
+        <!-- Decorative background element -->
+        <div style="position:absolute; top:-20px; right:-20px; font-size:8rem; opacity:0.04; font-family:'Playfair Display',serif; color:var(--gold); line-height:1; pointer-events:none;">▶</div>
+
+        <div style="display:flex; align-items:flex-start; gap:1.2rem; margin-bottom:1.5rem;">
+          <div style="width:52px; height:52px; border-radius:50%; background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+            <i class="fab fa-instagram" style="color:#fff; font-size:1.3rem;"></i>
+          </div>
+          <div>
+            <p style="font-family:'Playfair Display',serif; font-size:1.25rem; color:var(--cream); font-weight:600; margin-bottom:0.25rem;">Video me Dron — Rruga drejt Nesh</p>
+            <p style="font-size:0.7rem; color:var(--stone); letter-spacing:0.15em; text-transform:uppercase;">@restaurantlepenci · 18 Maj 2025</p>
+          </div>
+        </div>
+
+        <div style="width:100%; height:1px; background:linear-gradient(90deg,var(--gold),transparent); margin-bottom:1.5rem; opacity:0.3;"></div>
+
+        <p style="font-family:'Cormorant Garamond',serif; font-size:1.08rem; color:var(--cream-dark); line-height:1.9; margin-bottom:0.8rem; font-style:italic;">
+          "Bashkohuni me ne në këtë udhëtim të veçantë — nga ajri drejt zemrës së Restorant Lepenci."
+        </p>
+        <p style="font-size:0.83rem; color:var(--stone); line-height:1.8; margin-bottom:1.8rem;">
+          Më <strong style="color:var(--gold-light);">18 Maj 2025</strong>, ne publikuam në Instagram-in tonë një video të mrekullueshme me dron, që tregon rrugën magjike drejt restorantit tonë — duke fluturuar mbi lumin Lepenc, ndërmjet natyrës së gjelbër, deri te terraca jonë e ngrohtë.
+        </p>
+
+        <a href="https://www.instagram.com/reel/DJU5v3jo5lp/" target="_blank"
+           style="display:inline-flex; align-items:center; gap:0.6rem; padding:0.75rem 1.8rem; background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045); color:#fff; font-size:0.72rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; text-decoration:none; transition:opacity 0.3s;"
+           onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+          <i class="fab fa-instagram"></i> Shiko Videon në Instagram
+        </a>
+      </div>
+    </div>
+
+  </div>
+  <footer style="background:#0D1A0D;border-top:1px solid rgba(201,168,76,0.2);padding:2rem;text-align:center;margin-top:4rem;">
+    <p style="color:var(--stone);font-size:0.75rem;">© 2025 Restorant Lepenci · <button onclick="showPage('home')" style="background:none;border:none;cursor:pointer;color:var(--gold);font-size:0.75rem;">Kthehu në Home</button></p>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     REZERVO PAGE
+══════════════════════════════════════════════ -->
+<div id="page-rezervo" class="page full-page">
+  <div class="page-hero">
+    <p class="section-label mb-3">Siguroni vendin tuaj</p>
+    <h1 class="section-title">Bëni <em>Rezervim</em></h1>
+    <div class="gold-divider"></div>
+  </div>
+  <div class="page-body">
+    <div class="grid md:grid-cols-2 gap-16 items-start">
+      <div class="fade-up">
+        <p style="color:var(--cream-dark); font-family:'Cormorant Garamond',serif; font-size:1.05rem; line-height:1.9; margin-bottom:1.2rem;">
+          Plotësoni formularin dhe do t'ju hapet automatikisht WhatsApp me tekstin e rezervimit të gatshëm. Dërgoni mesazhin dhe ne do t'ju konfirmojmë sa më shpejt.
+        </p>
+        <div style="border:1px solid rgba(201,168,76,0.12); padding:1.5rem; margin-bottom:2rem;">
+          <div class="flex items-start gap-3 mb-3">
+            <i class="fas fa-check-circle mt-0.5" style="color:var(--gold); font-size:0.9rem; flex-shrink:0;"></i>
+            <p style="color:var(--cream-dark); font-size:0.85rem;">Rezervimi konfirmohet me WhatsApp nga ekipi ynë</p>
+          </div>
+          <div class="flex items-start gap-3 mb-3">
+            <i class="fas fa-check-circle mt-0.5" style="color:var(--gold); font-size:0.9rem; flex-shrink:0;"></i>
+            <p style="color:var(--cream-dark); font-size:0.85rem;">Anulim falas deri 2 orë para rezervimit</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <i class="fas fa-check-circle mt-0.5" style="color:var(--gold); font-size:0.9rem; flex-shrink:0;"></i>
+            <p style="color:var(--cream-dark); font-size:0.85rem;">Për grupe mbi 15 persona, na kontaktoni direkt</p>
+          </div>
+        </div>
+
+        <!-- Hours reminder -->
+        <div style="background:rgba(201,168,76,0.06); border:1px solid rgba(201,168,76,0.2); border-left:3px solid var(--gold); padding:1rem 1.2rem;">
+          <p class="section-label mb-1"><i class="fas fa-clock mr-2"></i>Orari i Punës</p>
+          <p style="color:var(--cream-dark); font-size:0.85rem;">E Hënë – E Diel: <strong style="color:var(--gold);">07:00 – 24:00</strong></p>
+        </div>
+      </div>
+
+      <div class="fade-up">
+        <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(201,168,76,0.15); border-top:2px solid var(--gold); padding:2.5rem;">
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div>
+              <label class="form-label">Emri *</label>
+              <input type="text" id="res_name" class="form-field" placeholder="Emri juaj" oninput="validateRes()">
+            </div>
+            <div>
+              <label class="form-label">Mbiemri *</label>
+              <input type="text" id="res_surname" class="form-field" placeholder="Mbiemri" oninput="validateRes()">
+            </div>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Nr. Telefonit *</label>
+            <input type="tel" id="res_phone" class="form-field" placeholder="+383 44 ..." oninput="validateRes()">
+          </div>
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div>
+              <label class="form-label">Data *</label>
+              <input type="date" id="res_date" class="form-field" onchange="validateRes()">
+            </div>
+            <div>
+              <label class="form-label">Ora *</label>
+              <input type="time" id="res_time" class="form-field" onchange="validateRes()">
+            </div>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Numri i Personave *</label>
+            <input type="number" id="res_guests" class="form-field" placeholder="P.sh. 4" min="1" max="200" oninput="validateRes()">
+          </div>
+          <div class="mb-6">
+            <label class="form-label">Detaje / Kërkesa Shtesë</label>
+            <textarea id="res_details" class="form-field" rows="3" placeholder="Ditëlindje, menu speciale, vend i preferuar..."></textarea>
+          </div>
+          <button id="resBtn" onclick="submitReservation()" class="btn-solid w-full" style="opacity:0.5;cursor:not-allowed;width:100%;" disabled>
+            <i class="fab fa-whatsapp mr-2"></i>Dërgo në WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer style="background:#0D1A0D;border-top:1px solid rgba(201,168,76,0.2);padding:2rem;text-align:center;margin-top:4rem;">
+    <p style="color:var(--stone);font-size:0.75rem;">© 2025 Restorant Lepenci · <button onclick="showPage('home')" style="background:none;border:none;cursor:pointer;color:var(--gold);font-size:0.75rem;">Kthehu në Home</button></p>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     KONTAKT PAGE
+══════════════════════════════════════════════ -->
+<div id="page-kontakt" class="page full-page">
+  <div class="page-hero">
+    <p class="section-label mb-3">Na shkruani</p>
+    <h1 class="section-title"><em>Kontakti</em></h1>
+    <div class="gold-divider"></div>
+  </div>
+  <div class="page-body" style="max-width:800px;">
+    <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(201,168,76,0.15); border-top:2px solid var(--gold); padding:2.5rem;" class="fade-up">
+      <div class="grid md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <label class="form-label">Emri *</label>
+          <input type="text" id="con_name" class="form-field" placeholder="Emri juaj" oninput="validateCon()">
+        </div>
+        <div>
+          <label class="form-label">Mbiemri *</label>
+          <input type="text" id="con_surname" class="form-field" placeholder="Mbiemri" oninput="validateCon()">
+        </div>
+      </div>
+      <div class="mb-4">
+        <label class="form-label">Nr. Telefonit *</label>
+        <input type="tel" id="con_phone" class="form-field" placeholder="+383 44 ..." oninput="validateCon()">
+      </div>
+      <div class="mb-6">
+        <label class="form-label">Mesazhi *</label>
+        <textarea id="con_msg" class="form-field" rows="4" placeholder="Shkruani mesazhin tuaj këtu..." oninput="validateCon()"></textarea>
+      </div>
+      <button id="conBtn" onclick="submitContact()" class="btn-solid" style="opacity:0.5;cursor:not-allowed;width:100%;" disabled>
+        <i class="fab fa-whatsapp mr-2"></i>Dërgo në WhatsApp
+      </button>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 mt-8 fade-up">
+      <div class="info-card">
+        <div class="section-label mb-2"><i class="fas fa-phone mr-2"></i>Telefon</div>
+        <p style="color:var(--cream-dark); font-size:0.9rem; margin-bottom:0.2rem;">+383 48 222 546</p>
+        <p style="color:var(--stone); font-size:0.82rem;">+383 49 490 737</p>
+      </div>
+      <div class="info-card">
+        <div class="section-label mb-2"><i class="fab fa-whatsapp mr-2"></i>WhatsApp</div>
+        <a href="https://wa.me/38348222546" target="_blank" style="color:var(--gold); font-size:0.9rem; text-decoration:none;">+383 48 222 546</a>
+      </div>
+    </div>
+  </div>
+  <footer style="background:#0D1A0D;border-top:1px solid rgba(201,168,76,0.2);padding:2rem;text-align:center;margin-top:4rem;">
+    <p style="color:var(--stone);font-size:0.75rem;">© 2025 Restorant Lepenci · <button onclick="showPage('home')" style="background:none;border:none;cursor:pointer;color:var(--gold);font-size:0.75rem;">Kthehu në Home</button></p>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     RESERVATION POPUP (WhatsApp)
+══════════════════════════════════════════════ -->
+<div id="reservationPopup">
+  <div class="popup-box">
+    <div style="width:64px;height:64px;border-radius:50%;background:rgba(37,211,102,0.1);border:2px solid #25d166;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;">
+      <i class="fab fa-whatsapp" style="color:#25d166;font-size:1.8rem;"></i>
+    </div>
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--cream);margin-bottom:0.8rem;">Rezervimi u Përgatit!</h3>
+    <p style="color:var(--cream-dark);line-height:1.7;font-family:'Cormorant Garamond',serif;font-size:1rem;margin-bottom:1.5rem;">
+      Rezervimi juaj u përgatit. Ju lutemi <strong style="color:var(--gold);">dërgoni mesazhin në WhatsApp</strong> dhe na kontaktoni për <strong style="color:var(--gold);">konfirmimin final.</strong>
+    </p>
+    <div style="display:flex;flex-direction:column;gap:0.75rem;">
+      <button id="popupConfirm" onclick="goToWhatsApp('reservation')" class="btn-solid" style="width:100%;display:flex;align-items:center;justify-content:center;gap:0.5rem;">
+        <i class="fab fa-whatsapp"></i>Hap WhatsApp & Dërgo
+      </button>
+      <button onclick="closePopup()" class="btn-primary" style="width:100%;">Anulo</button>
+    </div>
+  </div>
+</div>
+
+<!-- OFF HOURS POPUP -->
+<div id="offhoursPopup">
+  <div class="popup-box" style="max-width:480px;">
+    <div style="width:64px;height:64px;border-radius:50%;background:rgba(220,38,38,0.12);border:2px solid #ef4444;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;">
+      <i class="fas fa-clock" style="color:#ef4444;font-size:1.5rem;"></i>
+    </div>
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--cream);margin-bottom:0.6rem;">Rezervimi nuk është i mundur</h3>
+    <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:#ef4444;margin-bottom:1.2rem;">Jashtë orarit të punës</p>
+    <div style="background:rgba(220,38,38,0.07);border:1px solid rgba(220,38,38,0.25);border-left:3px solid #ef4444;padding:1rem 1.2rem;margin-bottom:1.4rem;text-align:left;">
+      <p style="color:var(--cream-dark);font-family:'Cormorant Garamond',serif;font-size:1rem;line-height:1.75;margin:0;">
+        Orari i rezervimeve është <strong style="color:var(--gold);">07:00 – 24:00, çdo ditë</strong>. Nuk mund të bëni rezervim jashtë këtij orari.
+      </p>
+    </div>
+    <div style="background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.25);border-left:3px solid var(--gold);padding:1.1rem 1.2rem;margin-bottom:1.5rem;text-align:left;">
+      <p style="font-size:0.65rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;"><i class="fas fa-exclamation-circle mr-1"></i>E RËNDËSISHME</p>
+      <p style="color:var(--cream-dark);font-size:0.87rem;line-height:1.7;margin:0;">
+        Rezervimet <strong style="color:var(--cream);">nuk konfirmohen</strong> pa kontaktuar direkt restorantin me telefon. Ju lutemi telefononi para çdo rezervimi.
+      </p>
+      <a href="tel:+38348222546" style="display:inline-flex;align-items:center;gap:0.5rem;margin-top:0.9rem;padding:0.6rem 1.3rem;background:var(--gold);color:var(--forest);font-size:0.72rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;transition:all 0.3s;"
+         onmouseover="this.style.background='var(--gold-dark)';this.style.color='var(--cream)'"
+         onmouseout="this.style.background='var(--gold)';this.style.color='var(--forest)'">
+        <i class="fas fa-phone"></i>+383 48 222 546
+      </a>
+    </div>
+    <button onclick="closeOffhours()" class="btn-primary" style="width:100%;">Ndrysho Orën e Rezervimit</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     ADMIN MODAL
+══════════════════════════════════════════════ -->
+<div id="adminModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);align-items:center;justify-content:center;">
+  <!-- Login -->
+  <div id="adminLoginBox" class="popup-box" style="max-width:360px;">
+    <div style="width:50px;height:50px;border-radius:50%;background:rgba(201,168,76,0.1);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;">
+      <i class="fas fa-lock" style="color:var(--gold);"></i>
+    </div>
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--cream);margin-bottom:1rem;">Paneli i Adminit</h3>
+    <input type="password" id="adminCode" class="form-field" style="margin-bottom:0.75rem;text-align:center;font-size:1.1rem;letter-spacing:0.3em;" placeholder="• • • • • • • •" maxlength="8" onkeydown="if(event.key==='Enter')checkAdmin()">
+    <p id="adminErr" style="display:none;color:#f87171;font-size:0.78rem;margin-bottom:0.75rem;">Kodi i gabuar. Provoni sërish.</p>
+    <button onclick="checkAdmin()" class="btn-solid" style="width:100%;margin-bottom:0.75rem;">Hyr</button>
+    <button onclick="closeAdmin()" class="btn-primary" style="width:100%;">Mbyll</button>
+  </div>
+
+  <!-- Panel -->
+  <div id="adminPanelBox" style="display:none;background:var(--forest-mid);border:1px solid rgba(201,168,76,0.25);border-top:3px solid var(--gold);width:95%;max-width:980px;max-height:92vh;overflow-y:auto;position:relative;">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:1.25rem;border-bottom:1px solid rgba(201,168,76,0.15);">
+      <div>
+        <h3 style="font-family:'Playfair Display',serif;color:var(--gold);font-size:1.2rem;">Paneli i Adminit</h3>
+        <p style="font-size:0.72rem;color:var(--stone);margin-top:0.2rem;">Restorant Lepenci — Menaxhimi i të Dhënave</p>
+      </div>
+      <button onclick="closeAdmin()" style="background:none;border:none;color:var(--stone);cursor:pointer;font-size:1.1rem;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='var(--stone)'"><i class="fas fa-times"></i></button>
+    </div>
+    <div style="display:flex;padding:0 1.25rem;border-bottom:1px solid rgba(201,168,76,0.1);">
+      <button class="admin-tab active" onclick="adminTab('reservations',this)">Rezervimet</button>
+      <button class="admin-tab" onclick="adminTab('messages',this)">Mesazhet</button>
+    </div>
+    <div style="padding:1.25rem;">
+
+      <!-- REZERVIMET TAB -->
+      <div id="adminReservations">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;margin-bottom:1rem;">
+          <div style="display:flex;align-items:center;gap:0.75rem;">
+            <span id="resCount" class="badge badge-yellow"></span>
+            <p style="font-size:0.72rem;color:var(--stone);">Mund të modifikoni: orën, personat dhe detajet.</p>
+          </div>
+          <button onclick="confirmDeleteAll('res')" style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#f87171;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:0.4rem 0.9rem;cursor:pointer;transition:all 0.3s;" onmouseover="this.style.background='rgba(239,68,68,0.2)'" onmouseout="this.style.background='rgba(239,68,68,0.1)'">
+            <i class="fas fa-trash-alt mr-1"></i>Fshij të Gjitha
+          </button>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="admin-table">
+            <thead><tr><th>#</th><th>Emri</th><th>Telefoni</th><th>Data</th><th>Ora</th><th>Persona</th><th>Detaje</th><th>Statusi</th><th>Fshij</th></tr></thead>
+            <tbody id="resTableBody"></tbody>
+          </table>
+        </div>
+        <div id="resEmpty" style="text-align:center;padding:3rem 0;color:var(--stone);display:none;">
+          <i class="fas fa-calendar-times fa-2x" style="opacity:0.3;margin-bottom:0.75rem;display:block;"></i>
+          <p style="font-size:0.85rem;">Nuk ka rezervime ende.</p>
+        </div>
+      </div>
+
+      <!-- MESAZHET TAB -->
+      <div id="adminMessages" style="display:none;">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;margin-bottom:1rem;">
+          <div style="display:flex;align-items:center;gap:0.75rem;">
+            <span id="msgCount" class="badge badge-green"></span>
+            <p style="font-size:0.72rem;color:var(--stone);">Mesazhet mund të fshihen, por jo të modifikohen.</p>
+          </div>
+          <button onclick="confirmDeleteAll('msg')" style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#f87171;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:0.4rem 0.9rem;cursor:pointer;transition:all 0.3s;" onmouseover="this.style.background='rgba(239,68,68,0.2)'" onmouseout="this.style.background='rgba(239,68,68,0.1)'">
+            <i class="fas fa-trash-alt mr-1"></i>Fshij të Gjitha
+          </button>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="admin-table">
+            <thead><tr><th>#</th><th>Emri</th><th>Telefoni</th><th>Mesazhi</th><th>Koha</th><th>Fshij</th></tr></thead>
+            <tbody id="msgTableBody"></tbody>
+          </table>
+        </div>
+        <div id="msgEmpty" style="text-align:center;padding:3rem 0;color:var(--stone);display:none;">
+          <i class="fas fa-inbox fa-2x" style="opacity:0.3;margin-bottom:0.75rem;display:block;"></i>
+          <p style="font-size:0.85rem;">Nuk ka mesazhe ende.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- DELETE ALL CONFIRM POPUP -->
+<div id="deleteAllPopup" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,0.85);backdrop-filter:blur(6px);align-items:center;justify-content:center;">
+  <div class="popup-box" style="max-width:400px;">
+    <div style="width:56px;height:56px;border-radius:50%;background:rgba(239,68,68,0.12);border:2px solid #f87171;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;">
+      <i class="fas fa-exclamation-triangle" style="color:#f87171;font-size:1.3rem;"></i>
+    </div>
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--cream);margin-bottom:0.75rem;" id="deleteAllTitle">Fshij të Gjitha?</h3>
+    <p style="color:var(--cream-dark);font-family:'Cormorant Garamond',serif;font-size:1rem;line-height:1.7;margin-bottom:1.5rem;" id="deleteAllMsg">
+      Jeni i sigurt? Të gjitha të dhënat do të fshihen <strong style="color:#f87171;">përgjithmonë</strong> dhe nuk mund të rikthehen.
+    </p>
+    <div style="display:flex;gap:0.75rem;">
+      <button onclick="executeDeleteAll()" style="flex:1;background:#ef4444;border:1px solid #ef4444;color:#fff;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;padding:0.75rem;cursor:pointer;transition:all 0.3s;" onmouseover="this.style.background='#dc2626'" onmouseout="this.style.background='#ef4444'">
+        <i class="fas fa-trash-alt mr-1"></i>Po, Fshij
+      </button>
+      <button onclick="closeDeleteAllPopup()" class="btn-primary" style="flex:1;">Anulo</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── PAGE NAVIGATION ──
+const pageNavMap = {
+  home: 0, historia: 1, menu: 2, galeria: 3, lokacioni: 4, rezervo: 5, kontakt: 6
+};
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  window.scrollTo(0, 0);
+  // Set active nav link
+  const navLinks = document.querySelectorAll('.nav-center .nav-link');
+  navLinks.forEach(l => l.classList.remove('active'));
+  const idx = pageNavMap[page];
+  if (idx !== undefined && navLinks[idx]) navLinks[idx].classList.add('active');
+  // Re-trigger fade animations
+  setTimeout(() => {
+    document.querySelectorAll('.fade-up').forEach(el => el.classList.remove('visible'));
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('#page-' + page + ' .fade-up').forEach(el => obs.observe(el));
+  }, 50);
+}
+
+// ── MOBILE MENU ──
+function toggleMobileMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// ── MENU CATEGORY SWITCHER ──
+function switchMenuCat(cat, btn) {
+  document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.menu-cat-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('menu-' + cat).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── DRINKS SUB-TABS ──
+function switchDrink(type, btn) {
+  document.querySelectorAll('.drink-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.drink-sub-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('drink-' + type).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── DATA ──
+let reservations = JSON.parse(localStorage.getItem('lepenci_reservations') || '[]');
+let messages = JSON.parse(localStorage.getItem('lepenci_messages') || '[]');
+let pendingReservation = null;
+
+// ── VALIDATION ──
+function validateRes() {
+  const name = document.getElementById('res_name').value.trim();
+  const surname = document.getElementById('res_surname').value.trim();
+  const phone = document.getElementById('res_phone').value.trim();
+  const date = document.getElementById('res_date').value;
+  const time = document.getElementById('res_time').value;
+  const guests = document.getElementById('res_guests').value;
+  const ok = name && surname && phone && date && time && guests > 0;
+  const btn = document.getElementById('resBtn');
+  if (ok) { btn.disabled = false; btn.style.opacity = '1'; btn.style.cursor = 'pointer'; }
+  else { btn.disabled = true; btn.style.opacity = '0.5'; btn.style.cursor = 'not-allowed'; }
+}
+
+function validateCon() {
+  const name = document.getElementById('con_name').value.trim();
+  const surname = document.getElementById('con_surname').value.trim();
+  const phone = document.getElementById('con_phone').value.trim();
+  const msg = document.getElementById('con_msg').value.trim();
+  const ok = name && surname && phone && msg;
+  const btn = document.getElementById('conBtn');
+  if (ok) { btn.disabled = false; btn.style.opacity = '1'; btn.style.cursor = 'pointer'; }
+  else { btn.disabled = true; btn.style.opacity = '0.5'; btn.style.cursor = 'not-allowed'; }
+}
+
+// ── BUSINESS HOURS CHECK (07:00 - 24:00, every day) ──
+function isWithinBusinessHours(dateStr, timeStr) {
+  if (!dateStr || !timeStr) return true;
+  const [h, m] = timeStr.split(':').map(Number);
+  const totalMin = h * 60 + m;
+  const openMin = 7 * 60;   // 07:00
+  const closeMin = 24 * 60; // 24:00 (midnight = end of day)
+  return totalMin >= openMin && totalMin < closeMin;
+}
+
+// ── RESERVATION SUBMIT ──
+function submitReservation() {
+  const name = document.getElementById('res_name').value.trim();
+  const surname = document.getElementById('res_surname').value.trim();
+  const phone = document.getElementById('res_phone').value.trim();
+  const date = document.getElementById('res_date').value;
+  const time = document.getElementById('res_time').value;
+  const guests = document.getElementById('res_guests').value;
+  const details = document.getElementById('res_details').value.trim();
+
+  pendingReservation = {
+    id: Date.now(),
+    name: name + ' ' + surname,
+    phone, date, time, guests, details,
+    timestamp: new Date().toLocaleString('sq-AL'),
+    status: 'Në pritje'
+  };
+
+  // Check business hours
+  if (!isWithinBusinessHours(date, time)) {
+    document.getElementById('offhoursPopup').classList.add('show');
+  } else {
+    document.getElementById('reservationPopup').classList.add('show');
+  }
+}
+
+function proceedReservation() {
+  closeOffhours();
+  document.getElementById('reservationPopup').classList.add('show');
+}
+
+function closeOffhours() {
+  document.getElementById('offhoursPopup').classList.remove('show');
+}
+
+function goToWhatsApp(type) {
+  if (type === 'reservation' && pendingReservation) {
+    const r = pendingReservation;
+    const msg = `Përshëndetje! Dëshiroj të bëj një rezervim në Restorant Lepenci.\n\n📋 *Detajet e Rezervimit:*\n👤 Emri: ${r.name}\n📞 Telefoni: ${r.phone}\n📅 Data: ${r.date}\n🕐 Ora: ${r.time}\n👥 Numri i personave: ${r.guests}${r.details ? '\n📝 Detaje: ' + r.details : ''}\n\nJu faleminderit! 🙏`;
+    reservations.push(r);
+    localStorage.setItem('lepenci_reservations', JSON.stringify(reservations));
+    pendingReservation = null;
+    ['res_name','res_surname','res_phone','res_date','res_time','res_guests','res_details'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    validateRes();
+    closePopup();
+    window.open(`https://wa.me/38348222546?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+}
+
+function closePopup() {
+  document.getElementById('reservationPopup').classList.remove('show');
+}
+
+// ── CONTACT SUBMIT ──
+function submitContact() {
+  const name = document.getElementById('con_name').value.trim();
+  const surname = document.getElementById('con_surname').value.trim();
+  const phone = document.getElementById('con_phone').value.trim();
+  const msg = document.getElementById('con_msg').value.trim();
+  const record = { id: Date.now(), name: name + ' ' + surname, phone, msg, timestamp: new Date().toLocaleString('sq-AL') };
+  messages.push(record);
+  localStorage.setItem('lepenci_messages', JSON.stringify(messages));
+  const waText = `Përshëndetje! Unë jam *${name} ${surname}* (${phone}).\n\n${msg}`;
+  ['con_name','con_surname','con_phone','con_msg'].forEach(id => { document.getElementById(id).value = ''; });
+  validateCon();
+  window.open(`https://wa.me/38348222546?text=${encodeURIComponent(waText)}`, '_blank');
+}
+
+// ── ADMIN ──
+let deleteAllTarget = null;
+
+function openAdminLogin() {
+  const m = document.getElementById('adminModal');
+  m.style.display = 'flex';
+  document.getElementById('adminLoginBox').style.display = 'block';
+  document.getElementById('adminPanelBox').style.display = 'none';
+  document.getElementById('adminCode').value = '';
+  document.getElementById('adminErr').style.display = 'none';
+}
+function closeAdmin() { document.getElementById('adminModal').style.display = 'none'; }
+function checkAdmin() {
+  const code = document.getElementById('adminCode').value;
+  if (code === '01032022') {
+    document.getElementById('adminLoginBox').style.display = 'none';
+    document.getElementById('adminPanelBox').style.display = 'block';
+    renderAdmin();
+  } else {
+    document.getElementById('adminErr').style.display = 'block';
+    document.getElementById('adminCode').value = '';
+  }
+}
+function adminTab(tab, btn) {
+  document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('adminReservations').style.display = tab === 'reservations' ? 'block' : 'none';
+  document.getElementById('adminMessages').style.display = tab === 'messages' ? 'block' : 'none';
+}
+
+function renderAdmin() {
+  reservations = JSON.parse(localStorage.getItem('lepenci_reservations') || '[]');
+  messages = JSON.parse(localStorage.getItem('lepenci_messages') || '[]');
+
+  // ── Rezervimet ──
+  const tbody = document.getElementById('resTableBody');
+  const resEmpty = document.getElementById('resEmpty');
+  document.getElementById('resCount').textContent = `${reservations.length} Rezervime`;
+  if (reservations.length === 0) {
+    tbody.innerHTML = '';
+    resEmpty.style.display = 'block';
+  } else {
+    resEmpty.style.display = 'none';
+    tbody.innerHTML = reservations.map((r, i) => `
+      <tr id="res-row-${i}">
+        <td style="color:var(--gold);">#${i+1}</td>
+        <td><strong>${r.name}</strong></td>
+        <td><a href="tel:${r.phone}" style="color:var(--river);">${r.phone}</a></td>
+        <td>${r.date}</td>
+        <td>
+          <input type="time" class="edit-input" style="width:90px;" value="${r.time}"
+            onchange="updateResField(${i},'time',this.value)" title="Ndrysho orën">
+        </td>
+        <td>
+          <input type="number" class="edit-input" value="${r.guests}" min="1"
+            onchange="updateResField(${i},'guests',this.value)" title="Ndrysho numrin e personave">
+        </td>
+        <td style="max-width:200px;">
+          <input type="text" class="edit-input" style="width:100%;max-width:160px;" value="${r.details || ''}"
+            onchange="updateResField(${i},'details',this.value)" title="Ndrysho detajet" placeholder="–">
+        </td>
+        <td><span class="badge badge-yellow">${r.status}</span></td>
+        <td>
+          <button onclick="deleteOneRes(${i})" title="Fshij këtë rezervim"
+            style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#f87171;width:30px;height:30px;cursor:pointer;font-size:0.8rem;transition:all 0.2s;"
+            onmouseover="this.style.background='rgba(239,68,68,0.25)'"
+            onmouseout="this.style.background='rgba(239,68,68,0.1)'">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </td>
+      </tr>`).join('');
+  }
+
+  // ── Mesazhet ──
+  const mtbody = document.getElementById('msgTableBody');
+  const msgEmpty = document.getElementById('msgEmpty');
+  document.getElementById('msgCount').textContent = `${messages.length} Mesazhe`;
+  if (messages.length === 0) {
+    mtbody.innerHTML = '';
+    msgEmpty.style.display = 'block';
+  } else {
+    msgEmpty.style.display = 'none';
+    mtbody.innerHTML = messages.map((m, i) => `
+      <tr id="msg-row-${i}">
+        <td style="color:var(--gold);">#${i+1}</td>
+        <td>${m.name}</td>
+        <td><a href="tel:${m.phone}" style="color:var(--river);">${m.phone}</a></td>
+        <td style="max-width:280px;word-break:break-word;">${m.msg}</td>
+        <td style="color:var(--stone);white-space:nowrap;">${m.timestamp}</td>
+        <td>
+          <button onclick="deleteOneMsg(${i})" title="Fshij këtë mesazh"
+            style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#f87171;width:30px;height:30px;cursor:pointer;font-size:0.8rem;transition:all 0.2s;"
+            onmouseover="this.style.background='rgba(239,68,68,0.25)'"
+            onmouseout="this.style.background='rgba(239,68,68,0.1)'">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </td>
+      </tr>`).join('');
+  }
+}
+
+function updateResField(index, field, val) {
+  reservations = JSON.parse(localStorage.getItem('lepenci_reservations') || '[]');
+  if (reservations[index]) {
+    if (field === 'guests') reservations[index].guests = parseInt(val) || reservations[index].guests;
+    else reservations[index][field] = val;
+    localStorage.setItem('lepenci_reservations', JSON.stringify(reservations));
+  }
+}
+
+function deleteOneRes(index) {
+  reservations = JSON.parse(localStorage.getItem('lepenci_reservations') || '[]');
+  reservations.splice(index, 1);
+  localStorage.setItem('lepenci_reservations', JSON.stringify(reservations));
+  renderAdmin();
+}
+
+function deleteOneMsg(index) {
+  messages = JSON.parse(localStorage.getItem('lepenci_messages') || '[]');
+  messages.splice(index, 1);
+  localStorage.setItem('lepenci_messages', JSON.stringify(messages));
+  renderAdmin();
+}
+
+function confirmDeleteAll(type) {
+  deleteAllTarget = type;
+  const popup = document.getElementById('deleteAllPopup');
+  const title = document.getElementById('deleteAllTitle');
+  const msg = document.getElementById('deleteAllMsg');
+  if (type === 'res') {
+    title.textContent = 'Fshij të Gjitha Rezervimet?';
+    msg.innerHTML = 'Jeni i sigurt? Të gjitha <strong style="color:#f87171;">rezervimet</strong> do të fshihen përgjithmonë dhe nuk mund të rikthehen.';
+  } else {
+    title.textContent = 'Fshij të Gjitha Mesazhet?';
+    msg.innerHTML = 'Jeni i sigurt? Të gjitha <strong style="color:#f87171;">mesazhet</strong> do të fshihen përgjithmonë dhe nuk mund të rikthehen.';
+  }
+  popup.style.display = 'flex';
+}
+
+function closeDeleteAllPopup() {
+  document.getElementById('deleteAllPopup').style.display = 'none';
+  deleteAllTarget = null;
+}
+
+function executeDeleteAll() {
+  if (deleteAllTarget === 'res') {
+    reservations = [];
+    localStorage.setItem('lepenci_reservations', JSON.stringify([]));
+  } else if (deleteAllTarget === 'msg') {
+    messages = [];
+    localStorage.setItem('lepenci_messages', JSON.stringify([]));
+  }
+  closeDeleteAllPopup();
+  renderAdmin();
+}
+
+// ── REVIEWS SLIDER ──
+(function() {
+  let currentReview = 0;
+  const totalReviews = 5;
+  let autoTimer = null;
+
+  function initReviews() {
+    const dotsContainer = document.getElementById('reviewDots');
+    if (!dotsContainer) return;
+    dotsContainer.innerHTML = '';
+    for (let i = 0; i < totalReviews; i++) {
+      const d = document.createElement('button');
+      d.className = 'rev-dot' + (i === 0 ? ' active' : '');
+      d.setAttribute('aria-label', 'Review ' + (i+1));
+      d.onclick = () => goToReview(i);
+      dotsContainer.appendChild(d);
+    }
+    startAuto();
+  }
+
+  function goToReview(index) {
+    currentReview = (index + totalReviews) % totalReviews;
+    const track = document.getElementById('reviewsTrack');
+    if (track) track.style.transform = `translateX(-${currentReview * 100}%)`;
+    document.querySelectorAll('.rev-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === currentReview);
+    });
+  }
+
+  window.moveReview = function(dir) {
+    clearInterval(autoTimer);
+    goToReview(currentReview + dir);
+    startAuto();
+  };
+
+  function startAuto() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(() => goToReview(currentReview + 1), 5000);
+  }
+
+  document.addEventListener('DOMContentLoaded', initReviews);
+})();
+
+// ── INIT ──
+document.addEventListener('DOMContentLoaded', () => {
+  // Set Home as active nav link on load
+  const navLinks = document.querySelectorAll('.nav-center .nav-link');
+  if (navLinks[0]) navLinks[0].classList.add('active');
+
+  // Set min date
+  const dateInput = document.getElementById('res_date');
+  if (dateInput) dateInput.min = new Date().toISOString().split('T')[0];
+
+  // Init fade
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('#page-home .fade-up').forEach(el => obs.observe(el));
+});
+</script>
+</body>
+</html>
