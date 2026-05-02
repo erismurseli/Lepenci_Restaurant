@@ -1137,7 +1137,7 @@
             <div style="font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--stone); margin-top:0.3rem;">Pjata në Menu</div>
           </div>
           <div style="text-align:center; background:rgba(255,255,255,0.03); border:1px solid rgba(201,168,76,0.12); padding:1.5rem 0.5rem;">
-            <div style="font-family:'Playfair Display',serif; font-size:2rem; color:var(--gold); font-weight:700;">★★★★★</div>
+            <div style="font-family:'Playfair Display',serif; font-size:2rem; color:var(--gold); font-weight:700;">5★</div>
             <div style="font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--stone); margin-top:0.3rem;">Vlerësim</div>
           </div>
         </div>
@@ -1490,6 +1490,7 @@
       .vid-card {
         display: grid;
         grid-template-columns: 1fr 1fr;
+        align-items: stretch;
         gap: 0;
         margin-bottom: 3rem;
         border: 1px solid rgba(201,168,76,0.18);
@@ -1503,13 +1504,15 @@
         position: relative;
         background: #000;
         overflow: hidden;
-        aspect-ratio: 16/9;
-        min-height: 280px;
+        min-height: 320px;
+        height: 100%;
       }
       .vid-player-wrap video {
         width: 100%; height: 100%;
         object-fit: cover;
         display: block;
+        position: absolute;
+        top: 0; left: 0;
         transition: filter 0.5s ease;
         filter: brightness(0.88);
       }
@@ -1543,7 +1546,41 @@
         transition: background 0.4s ease, opacity 0.4s ease;
         cursor: pointer;
       }
-      .vid-play-overlay.hidden { opacity: 0; pointer-events: none; }
+      /* Buton pause i dukshëm gjatë gjithë videos */
+      .vid-ctrl-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 4;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(201,168,76,0.7);
+        background: rgba(10,20,10,0.65);
+        color: var(--gold);
+        font-size: 0.8rem;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        backdrop-filter: blur(4px);
+        transition: all 0.25s ease;
+      }
+      .vid-ctrl-btn:hover {
+        background: rgba(201,168,76,0.25);
+        border-color: var(--gold);
+        transform: scale(1.1);
+      }
+      .vid-ctrl-btn.visible { display: flex; }
+      .vid-play-overlay.hidden {
+        opacity: 0;
+        pointer-events: all;
+        background: transparent;
+      }
+      .vid-play-overlay.hidden:hover {
+        opacity: 1;
+        background: rgba(10,20,10,0.45);
+      }
       .vid-play-btn {
         width: 68px; height: 68px;
         border-radius: 50%;
@@ -1557,7 +1594,31 @@
         background: rgba(201,168,76,0.28);
         transform: scale(1.1);
       }
-      .vid-play-btn i { color: var(--gold); font-size: 1.4rem; margin-left: 4px; }
+      .vid-play-btn i { color: var(--gold); font-size: 1.4rem; }
+      .vid-play-btn i.fa-play { margin-left: 4px; }
+      .vid-play-btn i.fa-pause { margin-left: 0; }
+
+      /* Pause bar e vogël e dukshme gjatë gjithë videos */
+      .vid-pause-bar {
+        position: absolute;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(201,168,76,0.85);
+        color: #1A2E1A;
+        font-size: 0.58rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        padding: 5px 16px;
+        border-radius: 20px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        white-space: nowrap;
+        z-index: 3;
+      }
+      .vid-play-overlay.hidden:hover .vid-pause-bar { opacity: 1; }
 
       /* Info panel */
       .vid-info {
@@ -1635,7 +1696,8 @@
         .vid-info { padding: 2rem 1.5rem; border-left: none; border-right: none; border-top: 1px solid rgba(201,168,76,0.12); }
         .vid-card.reverse .vid-info { border-right: none; border-top: 1px solid rgba(201,168,76,0.12); }
         .vid-number { font-size: 2.5rem; }
-        .vid-player-wrap { min-height: 220px; }
+        .vid-player-wrap { min-height: 0; aspect-ratio: 16/9; height: auto; }
+        .vid-player-wrap video { position: relative; }
       }
     </style>
 
@@ -1644,15 +1706,17 @@
         <span class="vid-section-label">Specialitetet tona</span>
         <h2 class="section-title">Kuzhinë me <em>pasion</em></h2>
         <div class="gold-divider"></div>
-        <p style="color:var(--stone); font-family:'Cormorant Garamond',serif; font-size:1.05rem; margin-top:1.2rem; font-style:italic;">Tri pjata ikonike — gatuar me zjarr, duhan dhe durim.</p>
+        <p style="color:var(--stone); font-family:'Cormorant Garamond',serif; font-size:1.05rem; margin-top:1.2rem; font-style:italic;">Tri pjata ikonike — gatuar me përkushtim,zjarr  dhe durim.</p>
       </div>
 
       <!-- VIDEO 1: Brisket i Tymosur -->
       <div class="vid-card">
         <div class="vid-player-wrap">
-          <video id="vid1" src="Videot/BrisketITymosur.mp4" type="video/mp4" preload="none" playsinline loop></video>
-          <div class="vid-play-overlay" id="overlay1" onclick="playVid('vid1','overlay1')">
-            <div class="vid-play-btn"><i class="fas fa-play"></i></div>
+          <video id="vid1" src="Videot/BrisketITymosur.mp4" preload="none" playsinline loop></video>
+          <button id="ctrl1" class="vid-ctrl-btn" onclick="playVid('vid1','overlay1')" title="Pauzë"><i class="fas fa-pause"></i></button>
+          <div class="vid-play-overlay" id="overlay1" onclick="playVid('vid1','overlay1')" aria-label="Luaj video">
+            <div class="vid-play-btn"><i id="icon1" class="fas fa-play"></i></div>
+            <div class="vid-pause-bar">⏸ Pauzë</div>
           </div>
         </div>
         <div class="vid-info">
@@ -1660,7 +1724,7 @@
           <h3 class="vid-title">Brisket i <em>Tymosur</em></h3>
           <div class="vid-divider"></div>
           <p class="vid-desc">
-            Gjoksi i viçit i pjekur ngadalë për mbi 8 orë mbi dru të zgjedhur — korja e tymosur formon një cipë krokante, ndërsa mishi brenda mbetet i butë dhe lëngjshëm. Çdo fetë është rezultat i durimit dhe artizanatit.
+            "Asgjë nuk e mposht shijen e një Brisket-i të tymosur ngadalë! Ky mish i butë, i pasuruar me aromën e drurit dhe i gatuar deri në perfeksion, është një festë e vërtetë për çdo adhurues të mishit.
           </p>
           <div>
             <span class="vid-tag"><i class="fas fa-fire"></i> Tymosur</span>
@@ -1673,9 +1737,11 @@
       <!-- VIDEO 2: Tomahawk Steak (reversed) -->
       <div class="vid-card reverse">
         <div class="vid-player-wrap">
-          <video id="vid2" src="Videot/TomahawkSteak.mp4" type="video/mp4" preload="none" playsinline loop></video>
-          <div class="vid-play-overlay" id="overlay2" onclick="playVid('vid2','overlay2')">
-            <div class="vid-play-btn"><i class="fas fa-play"></i></div>
+          <video id="vid2" src="Videot/TomahawkSteak.mp4" preload="none" playsinline loop></video>
+          <button id="ctrl2" class="vid-ctrl-btn" onclick="playVid('vid2','overlay2')" title="Pauzë"><i class="fas fa-pause"></i></button>
+          <div class="vid-play-overlay" id="overlay2" onclick="playVid('vid2','overlay2')" aria-label="Luaj video">
+            <div class="vid-play-btn"><i id="icon2" class="fas fa-play"></i></div>
+            <div class="vid-pause-bar">⏸ Pauzë</div>
           </div>
         </div>
         <div class="vid-info">
@@ -1683,7 +1749,7 @@
           <h3 class="vid-title">Tomahawk <em>Steak</em></h3>
           <div class="vid-divider"></div>
           <p class="vid-desc">
-            Prerja mbretërore — 600 gramë biftek prime me kockën e gjatë të brinjës. Skara e nxehtë krijon koren e artë, ndërsa zemra mbetet rozë dhe e lëngshme. Një spektakël gastronomik që fillon me sy dhe mbaron me shije të paharrueshme.
+            "Përjetoni madhështinë e një Tomahawk Steak të gatuar në perfeksion! Më shumë se thjesht një vakt, ky është një udhëtim shijesh ku butësia e mishit dhe lëngshmëria takohen në çdo kafshatë. Një kryevepër për të gjithë dashamirët e skarës!
           </p>
           <div>
             <span class="vid-tag"><i class="fas fa-fire-alt"></i> Skarë dru</span>
@@ -1696,9 +1762,11 @@
       <!-- VIDEO 3: Brinjë të Tymosura -->
       <div class="vid-card">
         <div class="vid-player-wrap">
-          <video id="vid3" src="Videot/BrinjeTeTymosur.mp4" type="video/mp4" preload="none" playsinline loop></video>
-          <div class="vid-play-overlay" id="overlay3" onclick="playVid('vid3','overlay3')">
-            <div class="vid-play-btn"><i class="fas fa-play"></i></div>
+          <video id="vid3" src="Videot/BrinjeTeTymosur.mp4" preload="none" playsinline loop></video>
+          <button id="ctrl3" class="vid-ctrl-btn" onclick="playVid('vid3','overlay3')" title="Pauzë"><i class="fas fa-pause"></i></button>
+          <div class="vid-play-overlay" id="overlay3" onclick="playVid('vid3','overlay3')" aria-label="Luaj video">
+            <div class="vid-play-btn"><i id="icon3" class="fas fa-play"></i></div>
+            <div class="vid-pause-bar">⏸ Pauzë</div>
           </div>
         </div>
         <div class="vid-info">
@@ -1706,7 +1774,7 @@
           <h3 class="vid-title">Brinjë të <em>Tymosura</em></h3>
           <div class="vid-divider"></div>
           <p class="vid-desc">
-            Brinjët e viçit të tymosura me durim — 400 gramë mish që bie vetë nga kocka. Aroma e drunit dhe e erëzave të thata depërton thellë, duke krijuar një shije komplekse dhe të pasur që të mbet gjatë në kujtesë.
+            "Nuk ka asgjë që krahasohet me aromën e brinjëve të tymosura ngadalë! Të gatuara me durim deri sa mishi të shkëputet vetë nga kocka, këto brinjë janë përkufizimi i shijes autentike.
           </p>
           <div>
             <span class="vid-tag"><i class="fas fa-fire"></i> Tymosur</span>
@@ -2282,6 +2350,22 @@ const pageNavMap = {
   home: 0, historia: 1, menu: 2, galeria: 3, lokacioni: 4, rezervo: 5, kontakt: 6
 };
 function showPage(page) {
+  // Ndalo të gjitha videot kur del nga galeria
+  if (page !== 'galeria') {
+    allVids.forEach(function(v) {
+      const vid = document.getElementById(v.vid);
+      const overlay = document.getElementById(v.overlay);
+      const icon = document.getElementById(v.icon);
+      const ctrl = document.getElementById(v.ctrl);
+      if (vid && !vid.paused) {
+        vid.pause();
+        vid.currentTime = 0;
+      }
+      if (overlay) overlay.classList.remove('hidden');
+      if (icon) { icon.classList.remove('fa-pause'); icon.classList.add('fa-play'); }
+      if (ctrl) ctrl.classList.remove('visible');
+    });
+  }
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + page).classList.add('active');
   window.scrollTo(0, 0);
@@ -2633,15 +2717,47 @@ function executeDeleteAll() {
 })();
 
 // ── VIDEO PLAY/PAUSE ──
+const allVids = [
+  { vid: 'vid1', overlay: 'overlay1', icon: 'icon1', ctrl: 'ctrl1' },
+  { vid: 'vid2', overlay: 'overlay2', icon: 'icon2', ctrl: 'ctrl2' },
+  { vid: 'vid3', overlay: 'overlay3', icon: 'icon3', ctrl: 'ctrl3' },
+];
+
 function playVid(vidId, overlayId) {
   const vid = document.getElementById(vidId);
   const overlay = document.getElementById(overlayId);
+  const iconNum = vidId.replace('vid', '');
+  const icon = document.getElementById('icon' + iconNum);
+  const ctrl = document.getElementById('ctrl' + iconNum);
+
   if (vid.paused) {
+    // Ndalo të gjitha videot e tjera
+    allVids.forEach(function(v) {
+      if (v.vid !== vidId) {
+        const otherVid = document.getElementById(v.vid);
+        const otherOverlay = document.getElementById(v.overlay);
+        const otherIcon = document.getElementById(v.icon);
+        const otherCtrl = document.getElementById(v.ctrl);
+        if (otherVid && !otherVid.paused) {
+          otherVid.pause();
+          otherVid.currentTime = 0;
+        }
+        if (otherOverlay) otherOverlay.classList.remove('hidden');
+        if (otherIcon) { otherIcon.classList.remove('fa-pause'); otherIcon.classList.add('fa-play'); }
+        if (otherCtrl) otherCtrl.classList.remove('visible');
+      }
+    });
+    // Luaj këtë video
     vid.play();
     overlay.classList.add('hidden');
+    if (icon) { icon.classList.remove('fa-play'); icon.classList.add('fa-pause'); }
+    if (ctrl) ctrl.classList.add('visible');
   } else {
+    // Pauzë
     vid.pause();
     overlay.classList.remove('hidden');
+    if (icon) { icon.classList.remove('fa-pause'); icon.classList.add('fa-play'); }
+    if (ctrl) ctrl.classList.remove('visible');
   }
 }
 
