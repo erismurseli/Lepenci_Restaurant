@@ -1466,6 +1466,266 @@
     <div class="gold-divider"></div>
   </div>
   <div class="page-body">
+
+    <!-- ══ VIDEO SHOWCASE ══ -->
+    <style>
+      .vid-section-label {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 0.62rem;
+        font-weight: 600;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+        color: var(--gold);
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+      .vid-showcase {
+        margin-bottom: 5rem;
+      }
+      .vid-showcase-header {
+        text-align: center;
+        margin-bottom: 3.5rem;
+      }
+      /* ── CARD ── */
+      .vid-card {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        margin-bottom: 3rem;
+        border: 1px solid rgba(201,168,76,0.18);
+        overflow: hidden;
+        position: relative;
+      }
+      .vid-card.reverse { direction: rtl; }
+      .vid-card.reverse > * { direction: ltr; }
+
+      .vid-player-wrap {
+        position: relative;
+        background: #000;
+        overflow: hidden;
+        aspect-ratio: 16/9;
+        min-height: 280px;
+      }
+      .vid-player-wrap video {
+        width: 100%; height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: filter 0.5s ease;
+        filter: brightness(0.88);
+      }
+      .vid-player-wrap:hover video { filter: brightness(1); }
+
+      /* Gold corner accents */
+      .vid-player-wrap::before,
+      .vid-player-wrap::after {
+        content: '';
+        position: absolute;
+        width: 28px; height: 28px;
+        z-index: 3; pointer-events: none;
+      }
+      .vid-player-wrap::before {
+        top: 0; left: 0;
+        border-top: 2px solid var(--gold);
+        border-left: 2px solid var(--gold);
+      }
+      .vid-player-wrap::after {
+        bottom: 0; right: 0;
+        border-bottom: 2px solid var(--gold);
+        border-right: 2px solid var(--gold);
+      }
+
+      /* Play overlay */
+      .vid-play-overlay {
+        position: absolute; inset: 0;
+        display: flex; align-items: center; justify-content: center;
+        z-index: 2;
+        background: rgba(10,20,10,0.35);
+        transition: background 0.4s ease, opacity 0.4s ease;
+        cursor: pointer;
+      }
+      .vid-play-overlay.hidden { opacity: 0; pointer-events: none; }
+      .vid-play-btn {
+        width: 68px; height: 68px;
+        border-radius: 50%;
+        border: 2px solid var(--gold);
+        background: rgba(201,168,76,0.12);
+        display: flex; align-items: center; justify-content: center;
+        transition: all 0.35s ease;
+        backdrop-filter: blur(4px);
+      }
+      .vid-play-overlay:hover .vid-play-btn {
+        background: rgba(201,168,76,0.28);
+        transform: scale(1.1);
+      }
+      .vid-play-btn i { color: var(--gold); font-size: 1.4rem; margin-left: 4px; }
+
+      /* Info panel */
+      .vid-info {
+        background: var(--forest-mid);
+        padding: 3rem 2.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        border-left: 1px solid rgba(201,168,76,0.12);
+      }
+      .vid-card.reverse .vid-info {
+        border-left: none;
+        border-right: 1px solid rgba(201,168,76,0.12);
+      }
+      .vid-info::before {
+        content: '';
+        position: absolute; top: 0; left: 0; right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--gold), transparent);
+      }
+      .vid-card.reverse .vid-info::before {
+        background: linear-gradient(270deg, var(--gold), transparent);
+      }
+      .vid-number {
+        font-family: 'Playfair Display', serif;
+        font-size: 4rem;
+        font-weight: 700;
+        color: rgba(201,168,76,0.08);
+        line-height: 1;
+        margin-bottom: 0.5rem;
+        user-select: none;
+      }
+      .vid-title {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+        font-weight: 700;
+        color: var(--cream);
+        line-height: 1.2;
+        margin-bottom: 0.6rem;
+      }
+      .vid-title em { color: var(--gold); font-style: italic; }
+      .vid-divider {
+        width: 50px; height: 1px;
+        background: linear-gradient(90deg, var(--gold), transparent);
+        margin: 1rem 0;
+      }
+      .vid-desc {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.08rem;
+        color: var(--cream-dark);
+        line-height: 1.85;
+        margin-bottom: 1.2rem;
+      }
+      .vid-tag {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        font-size: 0.63rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--gold);
+        border: 1px solid rgba(201,168,76,0.3);
+        padding: 0.3rem 0.75rem;
+        margin-right: 0.4rem;
+        margin-bottom: 0.4rem;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .vid-card, .vid-card.reverse {
+          grid-template-columns: 1fr;
+          direction: ltr;
+        }
+        .vid-card.reverse > * { direction: ltr; }
+        .vid-info { padding: 2rem 1.5rem; border-left: none; border-right: none; border-top: 1px solid rgba(201,168,76,0.12); }
+        .vid-card.reverse .vid-info { border-right: none; border-top: 1px solid rgba(201,168,76,0.12); }
+        .vid-number { font-size: 2.5rem; }
+        .vid-player-wrap { min-height: 220px; }
+      }
+    </style>
+
+    <div class="vid-showcase fade-up">
+      <div class="vid-showcase-header">
+        <span class="vid-section-label">Specialitetet tona</span>
+        <h2 class="section-title">Kuzhinë me <em>pasion</em></h2>
+        <div class="gold-divider"></div>
+        <p style="color:var(--stone); font-family:'Cormorant Garamond',serif; font-size:1.05rem; margin-top:1.2rem; font-style:italic;">Tri pjata ikonike — gatuar me zjarr, duhan dhe durim.</p>
+      </div>
+
+      <!-- VIDEO 1: Brisket i Tymosur -->
+      <div class="vid-card">
+        <div class="vid-player-wrap">
+          <video id="vid1" src="Videot/Brisket_i_Tymosur.mp4" preload="none" playsinline loop></video>
+          <div class="vid-play-overlay" id="overlay1" onclick="playVid('vid1','overlay1')">
+            <div class="vid-play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="vid-info">
+          <div class="vid-number">01</div>
+          <h3 class="vid-title">Brisket i <em>Tymosur</em></h3>
+          <div class="vid-divider"></div>
+          <p class="vid-desc">
+            Gjoksi i viçit i pjekur ngadalë për mbi 8 orë mbi dru të zgjedhur — korja e tymosur formon një cipë krokante, ndërsa mishi brenda mbetet i butë dhe lëngjshëm. Çdo fetë është rezultat i durimit dhe artizanatit.
+          </p>
+          <div>
+            <span class="vid-tag"><i class="fas fa-fire"></i> Tymosur</span>
+            <span class="vid-tag"><i class="fas fa-clock"></i> 8+ orë gatim</span>
+            <span class="vid-tag">15.00€</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIDEO 2: Tomahawk Steak (reversed) -->
+      <div class="vid-card reverse">
+        <div class="vid-player-wrap">
+          <video id="vid2" src="Videot/Tomahawk_Steak.mp4" preload="none" playsinline loop></video>
+          <div class="vid-play-overlay" id="overlay2" onclick="playVid('vid2','overlay2')">
+            <div class="vid-play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="vid-info">
+          <div class="vid-number">02</div>
+          <h3 class="vid-title">Tomahawk <em>Steak</em></h3>
+          <div class="vid-divider"></div>
+          <p class="vid-desc">
+            Prerja mbretërore — 600 gramë biftek prime me kockën e gjatë të brinjës. Skara e nxehtë krijon koren e artë, ndërsa zemra mbetet rozë dhe e lëngshme. Një spektakël gastronomik që fillon me sy dhe mbaron me shije të paharrueshme.
+          </p>
+          <div>
+            <span class="vid-tag"><i class="fas fa-fire-alt"></i> Skarë dru</span>
+            <span class="vid-tag">600g</span>
+            <span class="vid-tag">20.00€</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIDEO 3: Brinjë të Tymosura -->
+      <div class="vid-card">
+        <div class="vid-player-wrap">
+          <video id="vid3" src="Videot/Brinjë_të_Tymosur.mp4" preload="none" playsinline loop></video>
+          <div class="vid-play-overlay" id="overlay3" onclick="playVid('vid3','overlay3')">
+            <div class="vid-play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="vid-info">
+          <div class="vid-number">03</div>
+          <h3 class="vid-title">Brinjë të <em>Tymosura</em></h3>
+          <div class="vid-divider"></div>
+          <p class="vid-desc">
+            Brinjët e viçit të tymosura me durim — 400 gramë mish që bie vetë nga kocka. Aroma e drunit dhe e erëzave të thata depërton thellë, duke krijuar një shije komplekse dhe të pasur që të mbet gjatë në kujtesë.
+          </p>
+          <div>
+            <span class="vid-tag"><i class="fas fa-fire"></i> Tymosur</span>
+            <span class="vid-tag">400g</span>
+            <span class="vid-tag">14.00€</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- ══ FUND VIDEOVE ══ -->
+
+    <!-- Divider para fotove -->
+    <div style="display:flex; align-items:center; gap:1.5rem; margin-bottom:2.5rem;">
+      <div style="flex:1; height:1px; background:linear-gradient(90deg, transparent, rgba(201,168,76,0.3));"></div>
+      <span style="font-size:0.62rem; letter-spacing:0.35em; text-transform:uppercase; color:var(--stone); white-space:nowrap;">Galeria me Foto</span>
+      <div style="flex:1; height:1px; background:linear-gradient(270deg, transparent, rgba(201,168,76,0.3));"></div>
+    </div>
+
     <!-- Note about Instagram photos -->
     <div style="text-align:center; margin-bottom:2rem; padding:1rem; background:rgba(201,168,76,0.06); border:1px solid rgba(201,168,76,0.15);">
       <p style="color:var(--stone); font-size:0.8rem;"><i class="fab fa-instagram mr-2" style="color:var(--gold);"></i>Fotografitë janë nga <a href="https://www.instagram.com/restaurantlepenci/" target="_blank" style="color:var(--gold);">@restaurantlepenci</a> · Na ndiqni për më shumë!</p>
@@ -2371,6 +2631,19 @@ function executeDeleteAll() {
 
   document.addEventListener('DOMContentLoaded', initReviews);
 })();
+
+// ── VIDEO PLAY/PAUSE ──
+function playVid(vidId, overlayId) {
+  const vid = document.getElementById(vidId);
+  const overlay = document.getElementById(overlayId);
+  if (vid.paused) {
+    vid.play();
+    overlay.classList.add('hidden');
+  } else {
+    vid.pause();
+    overlay.classList.remove('hidden');
+  }
+}
 
 // ── INIT ──
 document.addEventListener('DOMContentLoaded', () => {
