@@ -807,6 +807,9 @@
 <!-- Mobile Menu -->
 <div id="mobileMenu">
   <button onclick="toggleMobileMenu()" style="position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;color:var(--gold);font-size:1.5rem;cursor:pointer;"><i class="fas fa-times"></i></button>
+  <button onclick="toggleLanguage()" class="admin-btn" style="margin-bottom:0.5rem; display:flex; align-items:center; gap:6px;">
+    <span id="langFlagMobile">🇬🇧</span> <span id="langLabelMobile">ENG</span>
+  </button>
   <button onclick="showPage('home'); toggleMobileMenu();" class="nav-link">Home</button>
   <button onclick="showPage('historia'); toggleMobileMenu();" class="nav-link">Historia</button>
   <button onclick="showPage('menu'); toggleMobileMenu();" class="nav-link">Menu</button>
@@ -1196,15 +1199,15 @@
   <div class="page-body">
 
     <!-- Category Tabs -->
-    <div class="menu-category-tabs fade-up">
+    <div class="menu-category-tabs fade-up" id="menuCategoryTabs">
       <button class="menu-cat-btn active" onclick="switchMenuCat('pasta', this)">🍝 Pasta</button>
       <button class="menu-cat-btn" onclick="switchMenuCat('mengjesi', this)">🍳 Mëngjesi</button>
-      <button class="menu-cat-btn" onclick="switchMenuCat('pizza', this)">🍕 Pizza</button>
+      <button class="menu-cat-btn" onclick="switchMenuCat('pizza', this)">🍕 Pica</button>
       <button class="menu-cat-btn" onclick="switchMenuCat('sallata', this)">🥗 Sallata</button>
       <button class="menu-cat-btn" onclick="switchMenuCat('paragjella', this)">🫒 Paragjella</button>
       <button class="menu-cat-btn" onclick="switchMenuCat('supa', this)">🍲 Supa</button>
       <button class="menu-cat-btn" onclick="switchMenuCat('peshku', this)">🐟 Ushqimet e Detit</button>
-      <button class="menu-cat-btn" onclick="switchMenuCat('specialitete', this)">⭐ Specialitete Shtëpije</button>
+      <button class="menu-cat-btn" onclick="switchMenuCat('specialitete', this)">⭐ Specialitete</button>
       <button class="menu-cat-btn" onclick="switchMenuCat('pije', this)">🥂 Pije</button>
       <button class="menu-cat-btn" onclick="switchMenuCat('embelsira', this)">🍰 Ëmbëlsira</button>
     </div>
@@ -2351,6 +2354,10 @@ function showPage(page) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + page).classList.add('active');
   window.scrollTo(0, 0);
+  // Reset menu tabs to first category when opening menu
+  if (page === 'menu') {
+    resetMenuToFirst();
+  }
   // Set active nav link
   const navLinks = document.querySelectorAll('.nav-center .nav-link');
   navLinks.forEach(l => l.classList.remove('active'));
@@ -2377,8 +2384,19 @@ function toggleMobileMenu() {
 function switchMenuCat(cat, btn) {
   document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.menu-cat-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('menu-' + cat).classList.add('active');
-  btn.classList.add('active');
+  const panel = document.getElementById('menu-' + cat);
+  if (panel) panel.classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+function resetMenuToFirst() {
+  // Reset to pasta (first tab) every time menu page is shown
+  document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.menu-cat-btn').forEach(b => b.classList.remove('active'));
+  const firstPanel = document.getElementById('menu-pasta');
+  if (firstPanel) firstPanel.classList.add('active');
+  const tabs = document.querySelectorAll('.menu-cat-btn');
+  if (tabs[0]) tabs[0].classList.add('active');
 }
 
 // ── DRINKS SUB-TABS ──
@@ -2784,7 +2802,7 @@ const translations = {
   menu_tab_paragjella: { sq: '🫒 Paragjella', en: '🫒 Appetizers' },
   menu_tab_sallata: { sq: '🥗 Sallata', en: '🥗 Salads' },
   menu_tab_pasta: { sq: '🍝 Pasta', en: '🍝 Pasta' },
-  menu_tab_pizza: { sq: '🍕 Pizza', en: '🍕 Pizza' },
+  menu_tab_pizza: { sq: '🍕 Pica', en: '🍕 Pizza' },
   menu_tab_mish: { sq: '🥩 Mish', en: '🥩 Meat' },
   menu_tab_sosat: { sq: '🫙 Sosat', en: '🫙 Sauces' },
   menu_tab_peshku: { sq: '🐟 Ushqimet e Detit', en: '🐟 Seafood' },
@@ -2805,12 +2823,18 @@ function toggleLanguage() {
   const btn = document.getElementById('langToggleBtn');
   const flag = document.getElementById('langFlag');
   const label = document.getElementById('langLabel');
+  const flagMobile = document.getElementById('langFlagMobile');
+  const labelMobile = document.getElementById('langLabelMobile');
   if (currentLang === 'en') {
-    flag.textContent = '🇦🇱';
-    label.textContent = 'SQ';
+    if (flag) flag.textContent = '🇦🇱';
+    if (label) label.textContent = 'SQ';
+    if (flagMobile) flagMobile.textContent = '🇦🇱';
+    if (labelMobile) labelMobile.textContent = 'SQ';
   } else {
-    flag.textContent = '🇬🇧';
-    label.textContent = 'ENG';
+    if (flag) flag.textContent = '🇬🇧';
+    if (label) label.textContent = 'ENG';
+    if (flagMobile) flagMobile.textContent = '🇬🇧';
+    if (labelMobile) labelMobile.textContent = 'ENG';
   }
   applyLanguage();
 }
@@ -2875,8 +2899,8 @@ function applyLanguage() {
   const menuQuote = document.querySelector('#page-menu .page-hero p[style*="italic"]');
   if (menuQuote) menuQuote.textContent = t('menu_quote');
 
-  // Menu tabs
-  const tabKeys = ['menu_tab_mengjesi','menu_tab_supa','menu_tab_paragjella','menu_tab_sallata','menu_tab_pasta','menu_tab_pizza','menu_tab_mish','menu_tab_sosat','menu_tab_peshku','menu_tab_specialitete','menu_tab_pije','menu_tab_embelsira'];
+  // Menu tabs - order: pasta, mengjesi, pizza, sallata, paragjella, supa, peshku, specialitete, pije, embelsira
+  const tabKeys = ['menu_tab_pasta','menu_tab_mengjesi','menu_tab_pizza','menu_tab_sallata','menu_tab_paragjella','menu_tab_supa','menu_tab_peshku','menu_tab_specialitete','menu_tab_pije','menu_tab_embelsira'];
   const tabBtns = document.querySelectorAll('.menu-cat-btn');
   tabBtns.forEach((btn, i) => { if (tabKeys[i]) btn.textContent = t(tabKeys[i]); });
 
