@@ -1689,9 +1689,9 @@
     <div class="vid-showcase fade-up">
       <div class="vid-showcase-header">
         <span class="vid-section-label">Specialitetet tona</span>
-        <h2 class="section-title">Brisket i <em>tymosur</em></h2>
+        <h2 class="section-title">Pjata të<em>Shijshme</em></h2>
         <div class="gold-divider"></div>
-        <p style="color:var(--stone); font-family:'Cormorant Garamond',serif; font-size:1.05rem; margin-top:1.2rem; font-style:italic;" class="video-desc">Tri pjata ikonike — gatuar me përkushtim,zjarr  dhe durim.</p>
+        <p style="color:var(--stone); font-family:'Cormorant Garamond',serif; font-size:1.05rem; margin-top:1.2rem; font-style:italic;" class="video-desc">Tri pjata ikonike të gatuara me përkushtim, zjarr dhe durim.</p>
       </div>
 
       <!-- VIDEO 1: Brisket i Tymosur -->
@@ -1709,7 +1709,7 @@
           <h3 class="vid-title">Brisket i <em>Tymosur</em></h3>
           <div class="vid-divider"></div>
           <p class="vid-desc">
-            "Asgjë nuk e mposht shijen e një Brisket-i të tymosur ngadalë! Ky mish i butë, i pasuruar me aromën e drurit dhe i gatuar deri në perfeksion, është një festë e vërtetë për çdo adhurues të mishit.
+            Asgjë nuk e mposht shijen e një Brisket-i të tymosur ngadalë! Ky mish i butë, i pasuruar me aromën e drurit dhe i gatuar deri në perfeksion, është një festë e vërtetë për çdo adhurues të mishit.
           </p>
           <div>
             <span class="vid-tag"><i class="fas fa-fire"></i> Tymosur</span>
@@ -2983,10 +2983,10 @@ const translations = {
   galeria_ig_btn: { sq: 'Hap Instagram', en: 'Open Instagram' },
   // VIDEO GALLERY
   vid_label: { sq: 'Shijoni', en: 'Watch' },
-  video_desc: {sq: 'Tri pjata ikonike — gatuar me përkushtim,zjarr  dhe durim.', en:'Three iconic dishes — cooked with dedication, passion, and patience.'},
-  vid_title1: { sq: 'Brisket i <em>tymosur</em>', en: '<em>Smoked</em> Brisket' },
+  vid_desc: {sq: 'Tri pjata ikonike të gatuara me përkushtim, zjarr dhe durim.', en:'Three iconic dishes, cooked with dedication, passion, and patience.'},
+  vid_title1: { sq: 'Pjata të<em>Shijshme</em>', en: '<em>Delicious</em> Dishes' },
   vid1_title: { sq: 'Brisket <em>i Tymosur</em>', en: '<em>Smoked</em> Brisket' },
-  vid1_desc: { sq: 'Zhytuni në atmosferën e restorantit Lepenci — ku zërat e lumit bashkohen me aromën e ushqimeve të gatuara me dashuri. Një ambient ku koha ndalon.', en: 'Immerse yourself in the atmosphere of Restaurant Lepenci — where the sounds of the river blend with the aroma of food cooked with love. A setting where time stands still.' },
+  vid1_desc: { sq: 'Asgjë nuk e mposht shijen e një Brisket-i të tymosur ngadalë! Ky mish i butë, i pasuruar me aromën e drurit dhe i gatuar deri në perfeksion, është një festë e vërtetë për çdo adhurues të mishit.', en: 'Nothing beats the taste of a slow-smoked brisket! This tender cut of meat, enriched with rich wood-smoked aromas and cooked to perfection, is a true feast for every meat lover.' },
   vid2_title: { sq: 'Tomahawk <em>Steak</em>', en: 'Tomahawk <em>Steak</em>' },
   vid2_desc: { sq: '"Përjetoni madhështinë e një Tomahawk Steak të gatuar në perfeksion! Më shumë se thjesht një vakt, ky është një udhëtim shijesh ku butësia e mishit dhe lëngshmëria takohen në çdo kafshatë. Një kryevepër për të gjithë dashamirët e skarës!', en: '"Experience the grandeur of a perfectly cooked Tomahawk Steak! More than just a meal, this is a journey of flavours where the tenderness and juiciness of the meat meet in every bite. A masterpiece for all grill enthusiasts!' },
   vid3_title: { sq: 'Brinjë të <em>Tymosura</em>', en: 'Smoked <em>Ribs</em>' },
@@ -3322,6 +3322,8 @@ function applyLanguage() {
     if (vidSectionLabel) vidSectionLabel.textContent = t('vid_label');
     const vidSectionTitle = galPage.querySelector('.vid-showcase-header h2');
     if (vidSectionTitle) vidSectionTitle.innerHTML = t('vid_title1');
+    const vidSubDesc = galPage.querySelector('.video-desc');
+    if (vidSubDesc) vidSubDesc.textContent = t('vid_desc');
     const vidTitles = galPage.querySelectorAll('.vid-title');
     const vidTitleKeys = ['vid1_title','vid2_title','vid3_title'];
     vidTitles.forEach((el,i) => { if (vidTitleKeys[i]) el.innerHTML = t(vidTitleKeys[i]); });
@@ -3494,6 +3496,10 @@ function applyLanguage() {
   if (adminNoRez) adminNoRez.textContent = t('admin_no_rez');
   const adminNoMsg = document.querySelector('#msgEmpty p');
   if (adminNoMsg) adminNoMsg.textContent = t('admin_no_msg');
+  // Admin "Delete All" buttons
+  document.querySelectorAll('#adminReservations button[onclick*="confirmDeleteAll"], #adminMessages button[onclick*="confirmDeleteAll"]').forEach(btn => {
+    btn.innerHTML = `<i class="fas fa-trash-alt mr-1"></i>${t('admin_del_all')}`;
+  });
 
   // ── ALL FOOTERS back-to-home ──
   document.querySelectorAll('footer button[onclick*="showPage(\'home\')"]').forEach(btn => {
