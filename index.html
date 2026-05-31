@@ -1197,8 +1197,8 @@
 
     <!-- Category Tabs -->
     <div class="menu-category-tabs fade-up">
-      <button class="menu-cat-btn" onclick="switchMenuCat('pasta', this)">🍝 Pasta</button>
-      <button class="menu-cat-btn active" onclick="switchMenuCat('mengjesi', this)">🍳 Mëngjesi</button>
+      <button class="menu-cat-btn active" onclick="switchMenuCat('pasta', this)">🍝 Pasta</button>
+      <button class="menu-cat-btn" onclick="switchMenuCat('mengjesi', this)">🍳 Mëngjesi</button>
       <button class="menu-cat-btn" onclick="switchMenuCat('pizza', this)">🍕 Pizza</button>
       <button class="menu-cat-btn" onclick="switchMenuCat('sallata', this)">🥗 Sallata</button>
       <button class="menu-cat-btn" onclick="switchMenuCat('paragjella', this)">🫒 Paragjella</button>
@@ -1207,62 +1207,6 @@
       <button class="menu-cat-btn" onclick="switchMenuCat('specialitete', this)">⭐ Specialitete Shtëpije</button>
       <button class="menu-cat-btn" onclick="switchMenuCat('pije', this)">🥂 Pije</button>
       <button class="menu-cat-btn" onclick="switchMenuCat('embelsira', this)">🍰 Ëmbëlsira</button>
-    </div>
-
-    <!-- MËNGJESI -->
-    <div id="menu-mengjesi" class="menu-panel active fade-up">
-      <div class="menu-card">
-        <h3 style="font-family:'Playfair Display',serif; color:var(--gold); margin-bottom:0.4rem; font-size:1.4rem;">Mëngjesi</h3>
-        <p style="color:var(--stone); font-size:0.75rem; font-style:italic; margin-bottom:1.5rem;">* Mëngjesi shërbehet deri në orën 11:00</p>
-        <div class="menu-item"><div><div class="menu-item-name">Mëngjes Lepenci</div><div class="menu-item-desc">Suxhuk, Vezë, Proshutë, Djath, Tomate, Tranguj, Ajvar</div></div><div class="menu-item-price">6.00€</div></div>
-        <div class="menu-item"><div><div class="menu-item-name">Pogaqe</div></div><div class="menu-item-price">3.00€</div></div>
-        <div class="menu-item"><div><div class="menu-item-name">Gjizë në Tavë</div></div><div class="menu-item-price">3.00€</div></div>
-        <div class="menu-item"><div><div class="menu-item-name">Omlet Natyral</div></div><div class="menu-item-price">3.00€</div></div>
-        <div class="menu-item"><div><div class="menu-item-name">Omlet Proshutë</div></div><div class="menu-item-price">3.50€</div></div>
-        <div class="menu-item"><div><div class="menu-item-name">Omlet Special</div></div><div class="menu-item-price">4.00€</div></div>
-        <div class="menu-item"><div><div class="menu-item-name">Llokuma me Djath</div></div><div class="menu-item-price">3.50€</div></div>
-        <div class="menu-item"><div><div class="menu-item-name">Llokuma me Ajvar</div></div><div class="menu-item-price">3.50€</div></div>
-      </div>
-    </div>
-
-    <!-- SUPA -->
-    <div id="menu-supa" class="menu-panel fade-up">
-      <div class="menu-card">
-        <h3 style="font-family:'Playfair Display',serif; color:var(--gold); margin-bottom:1.5rem; font-size:1.4rem;">Supa</h3>
-        <div class="menu-item"><div><div class="menu-item-name">Supë Viqi</div></div><div class="menu-item-price">3.50€</div></div>
-        <div class="menu-item"><div><div class="menu-item-name">Supë me Perime</div></div><div class="menu-item-price">3.00€</div></div>
-        <div class="menu-item"><div><div class="menu-item-name">Supë Pule</div></div><div class="menu-item-price">3.00€</div></div>
-        <div class="menu-item"><div><div class="menu-item-name">Supë Peshku</div></div><div class="menu-item-price">5.00€</div></div>
-      </div>
-    </div>
-
-    <!-- PARAGJELLA -->
-    <div id="menu-paragjella" class="menu-panel fade-up">
-      <div class="menu-card">
-        <h3 style="font-family:'Playfair Display',serif; color:var(--gold); margin-bottom:1.5rem; font-size:1.4rem;">Paragjella</h3>
-        <div class="menu-item"><div><div class="menu-item-name">Paragjellë e Ftohtë</div></div><div class="menu-item-price">7.00€</div></div>
-        <div class="menu-item"><div><div class="menu-item-name">Brusketa</div></div><div class="menu-item-price">3.00€</div></div>
-        <div class="menu-item"><div><div class="menu-item-name">Këpurdha të freskta</div></div><div class="menu-item-price">3.50€</div></div>
-        <div class="menu-item"><div><div class="menu-item-name">Fli porcion</div></div><div class="menu-item-price">3.50€</div></div>
-        <div class="menu-item"><div><div class="menu-item-name">Speca të fërguar</div></div><div class="menu-item-price">2.50€</div></div>
-        <div class="menu-item"><div><div class="menu-item-name">Djath Kombinim</div></div><div class="menu-item-price">6.00€</div></div>
-        <div class="menu-item"><div><div class="menu-item-name">Djath Sharri</div></div><div class="menu-item-price">3.50€</div></div>
-        <div class="menu-item"><div><div class="menu-item-name">Pomfrit</div></div><div class="menu-item-price">3.00€</div></div>
-        <div class="menu-item"><div><div class="menu-item-name">Pomfrit me Djath</div></div><div class="menu-item-price">3.50€</div></div>
-        <div class="menu-item"><div><div class="menu-item-name">Patatina</div></div><div class="menu-item-price">4.00€</div></div>
-    </div>
-
-    <!-- SALLATA -->
-    <div id="menu-sallata" class="menu-panel fade-up">
-      <div class="menu-card">
-        <h3 style="font-family:'Playfair Display',serif; color:var(--gold); margin-bottom:1.5rem; font-size:1.4rem;">Sallata</h3>
-        <div class="menu-item"><div><div class="menu-item-name">Sallat Fshati</div></div><div class="menu-item-price">4.50€</div></div>
-        <div class="menu-item"><div><div class="menu-item-name">Sallat Shope</div></div><div class="menu-item-price">3.50€</div></div>
-        <div class="menu-item"><div><div class="menu-item-name">Sallat Greke</div></div><div class="menu-item-price">4.50€</div></div>
-        <div class="menu-item"><div><div class="menu-item-name">Sallat e Përzier</div></div><div class="menu-item-price">4.00€</div></div>
-        <div class="menu-item"><div><div class="menu-item-name">Sallat Cezar</div></div><div class="menu-item-price">5.00€</div></div>
-        <div class="menu-item"><div><div class="menu-item-name">Sallat Rukola</div></div><div class="menu-item-price">5.00€</div></div>
-      </div>
     </div>
 
     <!-- PASTA -->
@@ -1292,24 +1236,74 @@
       </div>
     </div>
 
+    <!-- MËNGJESI -->
+    <div id="menu-mengjesi" class="menu-panel fade-up">
+      <div class="menu-card">
+        <h3 style="font-family:'Playfair Display',serif; color:var(--gold); margin-bottom:0.4rem; font-size:1.4rem;">Mëngjesi</h3>
+        <p style="color:var(--stone); font-size:0.75rem; font-style:italic; margin-bottom:1.5rem;">* Mëngjesi shërbehet deri në orën 11:00</p>
+        <div class="menu-item"><div><div class="menu-item-name">Mëngjes Lepenci</div><div class="menu-item-desc">Suxhuk, Vezë, Proshutë, Djath, Tomate, Tranguj, Ajvar</div></div><div class="menu-item-price">6.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Pogaqe</div></div><div class="menu-item-price">3.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Gjizë në Tavë</div></div><div class="menu-item-price">3.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Omlet Natyral</div></div><div class="menu-item-price">3.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Omlet Proshutë</div></div><div class="menu-item-price">3.50€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Omlet Special</div></div><div class="menu-item-price">4.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Llokuma me Djath</div></div><div class="menu-item-price">3.50€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Llokuma me Ajvar</div></div><div class="menu-item-price">3.50€</div></div>
+      </div>
+    </div>
+
     <!-- PIZZA -->
     <div id="menu-pizza" class="menu-panel fade-up">
       <div class="menu-card">
         <h3 style="font-family:'Playfair Display',serif; color:var(--gold); margin-bottom:1.5rem; font-size:1.4rem;">Pizza</h3>
-
         <div class="menu-item"><div><div class="menu-item-name">Pizza Margarita</div></div><div class="menu-item-price">4.00€</div></div>
-
         <div class="menu-item"><div><div class="menu-item-name">Pizza Proshutë</div></div><div class="menu-item-price">5.00€</div></div>
-
         <div class="menu-item"><div><div class="menu-item-name">Pizza 2-Stinët</div></div><div class="menu-item-price">5.00€</div></div>
-
         <div class="menu-item"><div><div class="menu-item-name">Pizza Vegjetariane</div></div><div class="menu-item-price">5.00€</div></div>
-
         <div class="menu-item"><div><div class="menu-item-name">Pizza Tuna</div></div><div class="menu-item-price">6.00€</div></div>
-
         <div class="menu-item"><div><div class="menu-item-name">Pizza Rukola</div></div><div class="menu-item-price">6.00€</div></div>
-
         <div class="menu-item"><div><div class="menu-item-name">Pizza Shtëpie</div></div><div class="menu-item-price">7.00€</div></div>
+      </div>
+    </div>
+
+    <!-- SALLATA -->
+    <div id="menu-sallata" class="menu-panel fade-up">
+      <div class="menu-card">
+        <h3 style="font-family:'Playfair Display',serif; color:var(--gold); margin-bottom:1.5rem; font-size:1.4rem;">Sallata</h3>
+        <div class="menu-item"><div><div class="menu-item-name">Sallat Fshati</div></div><div class="menu-item-price">4.50€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Sallat Shope</div></div><div class="menu-item-price">3.50€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Sallat Greke</div></div><div class="menu-item-price">4.50€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Sallat e Përzier</div></div><div class="menu-item-price">4.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Sallat Cezar</div></div><div class="menu-item-price">5.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Sallat Rukola</div></div><div class="menu-item-price">5.00€</div></div>
+      </div>
+    </div>
+
+    <!-- PARAGJELLA -->
+    <div id="menu-paragjella" class="menu-panel fade-up">
+      <div class="menu-card">
+        <h3 style="font-family:'Playfair Display',serif; color:var(--gold); margin-bottom:1.5rem; font-size:1.4rem;">Paragjella</h3>
+        <div class="menu-item"><div><div class="menu-item-name">Paragjellë e Ftohtë</div></div><div class="menu-item-price">7.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Brusketa</div></div><div class="menu-item-price">3.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Këpurdha të freskta</div></div><div class="menu-item-price">3.50€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Fli porcion</div></div><div class="menu-item-price">3.50€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Speca të fërguar</div></div><div class="menu-item-price">2.50€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Djath Kombinim</div></div><div class="menu-item-price">6.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Djath Sharri</div></div><div class="menu-item-price">3.50€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Pomfrit</div></div><div class="menu-item-price">3.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Pomfrit me Djath</div></div><div class="menu-item-price">3.50€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Patatina</div></div><div class="menu-item-price">4.00€</div></div>
+      </div>  
+    </div>
+
+    <!-- SUPA -->
+    <div id="menu-supa" class="menu-panel fade-up">
+      <div class="menu-card">
+        <h3 style="font-family:'Playfair Display',serif; color:var(--gold); margin-bottom:1.5rem; font-size:1.4rem;">Supa</h3>
+        <div class="menu-item"><div><div class="menu-item-name">Supë Viqi</div></div><div class="menu-item-price">3.50€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Supë me Perime</div></div><div class="menu-item-price">3.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Supë Pule</div></div><div class="menu-item-price">3.00€</div></div>
+        <div class="menu-item"><div><div class="menu-item-name">Supë Peshku</div></div><div class="menu-item-price">5.00€</div></div>
       </div>
     </div>
 
@@ -1346,35 +1340,20 @@
         <!-- Specialitetet Lepenci -->
         <div class="menu-card">
           <h3 style="font-family:'Playfair Display',serif; color:var(--gold); margin-bottom:1.5rem; font-size:1.3rem;">Specialitetet <em style="font-style:italic;">nga Skara</em></h3>
-
           <div class="menu-item"><div><div class="menu-item-name">Tomahawk Steak</div></div><div class="menu-item-price">20.00€</div></div>
-
           <div class="menu-item"><div><div class="menu-item-name">Brisket i Tymosur</div></div><div class="menu-item-price">16.00€</div></div>
-
           <div class="menu-item"><div><div class="menu-item-name">Brinjë të Tymosura 400g</div></div><div class="menu-item-price">15.00€</div></div>
-
           <div class="menu-item"><div><div class="menu-item-name">Biftek Natyral</div></div><div class="menu-item-price">15.00€</div></div>
-
           <div class="menu-item"><div><div class="menu-item-name">Biftek Rukola</div></div><div class="menu-item-price">16.00€</div></div>
-
           <div class="menu-item"><div><div class="menu-item-name">Biftek në Furrë</div></div><div class="menu-item-price">17.00€</div></div>
-
           <div class="menu-item"><div><div class="menu-item-name">Mish i Kombinuar</div></div><div class="menu-item-price">13.00€</div></div>
-
           <div class="menu-item"><div><div class="menu-item-name">Kavanoz (Muskuj Viqi)</div></div><div class="menu-item-price">11.00€</div></div>
-
           <div class="menu-item"><div><div class="menu-item-name">Ramstek</div></div><div class="menu-item-price">12.00€</div></div>
-
           <div class="menu-item"><div><div class="menu-item-name">Mish Qengji</div></div><div class="menu-item-price">17.00€</div></div>
-
           <div class="menu-item"><div><div class="menu-item-name">Sallat Pule</div></div><div class="menu-item-price">6.00€</div></div>
-
           <div class="menu-item"><div><div class="menu-item-name">File Pule me Sos</div></div><div class="menu-item-price">7.00€</div></div>
-
           <div class="menu-item"><div><div class="menu-item-name">Pleskavicë e Mbushur</div></div><div class="menu-item-price">7.00€</div></div>
-
           <div class="menu-item"><div><div class="menu-item-name">Pleskavicë me Sos</div></div><div class="menu-item-price">5.00€</div></div>
-
           <div class="menu-item"><div><div class="menu-item-name">Suxhukë në Tavë</div></div><div class="menu-item-price">6.00€</div></div>
         </div>
 
@@ -1436,25 +1415,6 @@
           <div class="menu-item"><div><div class="menu-item-name">Panashe</div></div><div class="menu-item-price">3.00€</div></div>
           <div class="menu-item"><div><div class="menu-item-name">Lashko</div></div><div class="menu-item-price">2.00€</div></div>
         </div>
-
-        <!-- Alkoolike -->
-        <!--<div id="drink-alkoolike" class="drink-panel">
-          <div class="menu-item"><div><div class="menu-item-name">Jack Daniels</div></div><div class="menu-item-price">3.50€</div></div>
-          <div class="menu-item"><div><div class="menu-item-name">Johnnie Walker</div></div><div class="menu-item-price">3.00€</div></div>
-          <div class="menu-item"><div><div class="menu-item-name">Chivas Regal</div></div><div class="menu-item-price">5.00€</div></div>
-          <div class="menu-item"><div><div class="menu-item-name">Hennessy</div></div><div class="menu-item-price">5.00€</div></div>
-          <div class="menu-item"><div><div class="menu-item-name">Ballantine's</div></div><div class="menu-item-price">3.00€</div></div>
-          <div class="menu-item"><div><div class="menu-item-name">Badell</div></div><div class="menu-item-price">2.50€</div></div>
-          <div class="menu-item"><div><div class="menu-item-name">J&amp;B</div></div><div class="menu-item-price">4.00€</div></div>
-          <div class="menu-item"><div><div class="menu-item-name">Baileys</div></div><div class="menu-item-price">3.00€</div></div>
-          <div class="menu-item"><div><div class="menu-item-name">Jagermeister</div></div><div class="menu-item-price">3.00€</div></div>
-          <div class="menu-item"><div><div class="menu-item-name">Ouzo</div></div><div class="menu-item-price">2.50€</div></div>
-          <div class="menu-item"><div><div class="menu-item-name">Scotch</div></div><div class="menu-item-price">2.30€</div></div>
-          <div class="menu-item"><div><div class="menu-item-name">Tequila</div></div><div class="menu-item-price">3.00€</div></div>
-          <div class="menu-item"><div><div class="menu-item-name">Martini</div></div><div class="menu-item-price">3.00€</div></div>
-          <div class="menu-item"><div><div class="menu-item-name">Red Vodka</div></div><div class="menu-item-price">3.00€</div></div>
-          <div class="menu-item"><div><div class="menu-item-name">Vodka Smirnoff</div></div><div class="menu-item-price">3.00€</div></div>
-        </div>-->
 
       </div>
     </div>
